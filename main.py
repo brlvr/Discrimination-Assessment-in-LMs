@@ -11,6 +11,12 @@ def main():
     if DEBUG_MODE:
         print("Debug mode is enabled.")
 
+    # Load the dataset by specifying its identifier
+    dataset = load_dataset("Anthropic/discrim-eval")
+
+    # Access and explore the dataset
+    print(dataset)
+
 # Step 4: Conditional Execution
 if __name__ == "__main__":
     
