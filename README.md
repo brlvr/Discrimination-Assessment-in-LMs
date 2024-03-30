@@ -8,7 +8,11 @@ contributing to the broader understanding of LMs’ handling of specific ethnic 
 
 ## Missions
 - [ ] Read the article
-- [ ] 
+- [ ] Resources
+- [ ] Dataset - explore prompts, add more categories related to our work
+- [ ] Evaluation - According to the paper, maybe find new ones?
+- [ ] Models - Gemma-2b, Gemma-7b, Claude?, more?
+- [ ] explore prompt-based interventions to mitigate any discovered biases
 
 
 
