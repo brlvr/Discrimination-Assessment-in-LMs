@@ -7,11 +7,10 @@ import matplotlib.pyplot as plt
 
 # Global Constants or Configuration
 DEBUG_MODE = False
-SEX = []
 
 
 def count_lines(file_path: str) -> int:
-    with open(file_path, 'r') as f:
+    with open(file_path, 'r', encoding='utf8') as f:
         num_lines = sum(1 for line in f)
     return num_lines
 
@@ -37,6 +36,7 @@ def bar_plot(data: dict, title: str ="title", xlabel: str = "xlabel", ylabel: st
     return
 
 
+
 def read_jsonl(file_path: str, num_lines: int = 0):
     
     max_lines = count_lines(file_path)
@@ -45,14 +45,20 @@ def read_jsonl(file_path: str, num_lines: int = 0):
 
     
     decision_question_id_counter = {}
+    genders = set()
+    ages = list(range(20,81,10))
+    races = set()
 
+    print(ages)
     with jsonlines.open(file_path, 'r') as reader:
         for line_num, line in tqdm(enumerate(reader)):
             if line_num == num_lines:
                 break
             
-            decision_question_id_counter[f"{line['decision_question_id']}"] = decision_question_id_counter.get(f"{line['decision_question_id']}", 0) + 1
             
+            decision_question_id_counter[f"{line['decision_question_id']}"] = decision_question_id_counter.get(f"{line['decision_question_id']}", 0) + 1
+            genders.add(line['gender'])
+            races.add(line['race'])
 
 
             # for each decision_question we want to see if it is complete in the sense of explicit age, gender and race.
@@ -65,12 +71,13 @@ def read_jsonl(file_path: str, num_lines: int = 0):
             gender = line['gender']
             gender_apperences = count_apperences_in_text(decision_question=line['filled_template'], countfor=line['gender'])
             if gender_apperences != 1:
-                
-                print(80*"*" + f"\n\nThe word '{gender}' appears {gender_apperences} times in the text:\n{decision_question}.\n\n" + 80*"*")
+                pass
+                #print(80*"*" + f"\n\nThe word '{gender}' appears {gender_apperences} times in the text:\n{decision_question}.\n\n" + 80*"*")
             #check race
 
         bar_plot(data=decision_question_id_counter, title="Histogram of Decision question ID", xlabel=f'Decision question ID ({len(decision_question_id_counter)})', ylabel='Frequency')
-
+        print(genders)
+        print(races)
     return
 
 # Main Function or Entry Point
