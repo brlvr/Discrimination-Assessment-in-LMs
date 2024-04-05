@@ -1,23 +1,42 @@
-# Step 1: Imports
-from datasets import load_dataset
+# Imports
+import jsonlines
 
-# Step 2: Global Constants or Configuration
+# Global Constants or Configuration
 DEBUG_MODE = False
 
-# Step 3: Main Function or Entry Point
+
+def count_lines(file_path: str) -> int:
+    with open(file_path, 'r') as f:
+        num_lines = sum(1 for line in f)
+    return num_lines
+
+
+def read_jsonl(file_path: str, num_lines: int = 0):
+    
+    max_lines = count_lines(file_path)
+
+    num_lines = 0 if num_lines <= 0 else max_lines if num_lines > max_lines else num_lines
+
+    with jsonlines.open(file_path, 'r') as reader:
+        for line_num, obj in enumerate(reader):
+            print(f"\n\n Line number: {line_num}\n\n {obj.keys()}")
+            if line_num == num_lines:
+                break
+    return
+
+# Main Function or Entry Point
 def main():
     print("Starting the program...")
-    # Your main program logic goes here
+
     if DEBUG_MODE:
         print("Debug mode is enabled.")
 
-    # Load the dataset by specifying its identifier
-    dataset = load_dataset("Anthropic/discrim-eval")
+    
+    read_jsonl(file_path=".\discrim-eval\explicit.jsonl", num_lines=3)
 
-    # Access and explore the dataset
-    print(dataset)
 
-# Step 4: Conditional Execution
+
+# Conditional Execution
 if __name__ == "__main__":
     
     main()
