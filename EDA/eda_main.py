@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 
 # Global Constants or Configuration
 DEBUG_MODE = False
+SEX = []
 
 
 def count_lines(file_path: str) -> int:
@@ -69,7 +70,7 @@ def read_jsonl(file_path: str, num_lines: int = 0):
             #check race
 
         bar_plot(data=decision_question_id_counter, title="Histogram of Decision question ID", xlabel=f'Decision question ID ({len(decision_question_id_counter)})', ylabel='Frequency')
-        print(len(decision_question_id_counter))
+
     return
 
 # Main Function or Entry Point
