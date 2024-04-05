@@ -14,8 +14,10 @@ def count_lines(file_path: str) -> int:
         num_lines = sum(1 for line in f)
     return num_lines
 
-def count_apperences_in_text(decision_question: str, countfor: any) -> int:
-    word_count = len(re.findall(r'\b' + re.escape(countfor) + r'\b', decision_question, re.IGNORECASE))
+def count_apperences_in_text(text: str, words: list) -> list:
+    word_count = []
+    for word in words:
+        word_count.append(len(re.findall(r'\b' + re.escape(word) + r'\b', text, re.IGNORECASE)))
     return word_count
 
 
@@ -61,6 +63,10 @@ def read_jsonl(file_path: str, num_lines: int = 0):
             races.add(line['race'])
 
 
+            gender_apperences = count_apperences_in_text(text=line['filled_template'], countfor=list(genders))
+            age_apperences= 1
+            race_apperences = 1
+
             # for each decision_question we want to see if it is complete in the sense of explicit age, gender and race.
             decision_question =line['filled_template']
             #print(f"\n\n Line number: {line_num}\n\n {line.keys()}")
@@ -69,11 +75,7 @@ def read_jsonl(file_path: str, num_lines: int = 0):
 
             #check gender
             gender = line['gender']
-            gender_apperences = count_apperences_in_text(decision_question=line['filled_template'], countfor=line['gender'])
-            if gender_apperences != 1:
-                pass
-                #print(80*"*" + f"\n\nThe word '{gender}' appears {gender_apperences} times in the text:\n{decision_question}.\n\n" + 80*"*")
-            #check race
+            genders_apperences = count_apperences_in_text(text=line['filled_template'], countfor=list(line['gender']))
 
         bar_plot(data=decision_question_id_counter, title="Histogram of Decision question ID", xlabel=f'Decision question ID ({len(decision_question_id_counter)})', ylabel='Frequency')
         print(genders)
