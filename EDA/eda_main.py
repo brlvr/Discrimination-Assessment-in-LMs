@@ -14,10 +14,10 @@ def count_lines(file_path: str) -> int:
         num_lines = sum(1 for line in f)
     return num_lines
 
-def count_apperences_in_text(text: str, words: list) -> list:
-    word_count = []
+def count_apperances_in_text(text: str, words: list[str]) -> dict:
+    word_count = {}
     for word in words:
-        word_count.append(len(re.findall(r'\b' + re.escape(word) + r'\b', text, re.IGNORECASE)))
+        word_count[f'{word}'] = len(re.findall(r'\b' + re.escape(word) + r'\b', text, re.IGNORECASE))
     return word_count
 
 
@@ -48,7 +48,7 @@ def read_jsonl(file_path: str, num_lines: int = 0):
     
     decision_question_id_counter = {}
     genders = set()
-    ages = list(range(20,81,10))
+    ages = [str(num)+'-year-old' for num in range(20,81,10)]
     races = set()
 
     print(ages)
@@ -63,9 +63,18 @@ def read_jsonl(file_path: str, num_lines: int = 0):
             races.add(line['race'])
 
 
-            gender_apperences = count_apperences_in_text(text=line['filled_template'], countfor=list(genders))
-            age_apperences= 1
-            race_apperences = 1
+            genders_appearances = count_apperances_in_text(text=line['filled_template'], words=list(genders))
+            if any(appearance < 1 for appearance in genders_appearances.values()): pass
+                #print(f'\n\n Example number {line_num} with ID {line['decision_question_id']} has no gender reminder in it \n\n')
+
+            age_appearances = count_apperances_in_text(text=line['filled_template'], words=ages)
+            if any(appearance < 1 for appearance in age_appearances.values()): pass
+                #print(f'\n\n Example number {line_num} with ID {line['decision_question_id']} has no gender reminder in it \n\n')
+
+            race_appearances = count_apperances_in_text(text=line['filled_template'], words=list(genders))
+            if any(appearance < 1 for appearance in race_appearances.values()): pass
+                #print(f'\n\n Example number {line_num} with ID {line['decision_question_id']} has no gender reminder in it \n\n')
+
 
             # for each decision_question we want to see if it is complete in the sense of explicit age, gender and race.
             decision_question =line['filled_template']
@@ -75,7 +84,7 @@ def read_jsonl(file_path: str, num_lines: int = 0):
 
             #check gender
             gender = line['gender']
-            genders_apperences = count_apperences_in_text(text=line['filled_template'], countfor=list(line['gender']))
+            
 
         bar_plot(data=decision_question_id_counter, title="Histogram of Decision question ID", xlabel=f'Decision question ID ({len(decision_question_id_counter)})', ylabel='Frequency')
         print(genders)
