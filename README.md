@@ -14,11 +14,13 @@ contributing to the broader understanding of LMs’ handling of specific ethnic 
 - [ ] Models - Gemma-2b, Gemma-7b, Claude?, more?
 - [ ] explore prompt-based interventions to mitigate any discovered biases
 
-
-
-
-
-
+## 06/04/2024 
+- [ ] Create templates
+- [ ] Add Jewish scenarios
+- [ ] Investigate data (multiple gender/age and more)
+- [ ] Try to create our own dataset
+- [ ] Why take 60 yeard old white man as basline?
+- [ ] 
 
 
 
