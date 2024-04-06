@@ -27,7 +27,7 @@ def read_dataset (file_path: str,num_lines: int = 0) -> pd.DataFrame:
 
 def PlotCharactersHistogram(dataset: pd.DataFrame):
     """
-    This functions gets a dataset, and plots hisotgram of its characters counts per template.
+    This function gets a dataset, and plots hisotgram of its characters counts per template.
     """
     CharactersHistogram = dataset['filled_template'].str.len()
     plt.hist(CharactersHistogram, bins=100, color='skyblue', edgecolor='black')
@@ -41,11 +41,25 @@ def PlotCharactersHistogram(dataset: pd.DataFrame):
     plt.show()
 
 
+def FeaturesHistogram(dataset: pd.DataFrame):
+    """
+    This function gets a dataset and runs over it columns to make histogram for feature (without "filled_template").
+    """
+    column_names = dataset.columns.tolist()[1:] #Remove first element "filled_template", already made histogram for it.
+    for col in column_names:
+        column_data = dataset[col] 
+        plt.hist(column_data, bins=20, color='skyblue', edgecolor='black')
+        plt.xlabel(col)
+        plt.ylabel('Frequency')
+        plt.title('Histogram of {}'.format(col))
+        plt.show()  
+
 
 def main():
     print ("Ron EDA...")
     dataset = read_dataset(file_path=".\discrim-eval\explicit.jsonl", num_lines=-1)
     PlotCharactersHistogram(dataset)
+    FeaturesHistogram(dataset)
 
 if __name__ == "__main__":
     main()
