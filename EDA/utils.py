@@ -16,8 +16,8 @@ def count_lines(file_path: str) -> int:
 
 
 def count_apperances_in_texts(texts_df: pd.DataFrame, words: list[str]) -> pd.DataFrame:
-    output_df = pd.DataFrame(texts_df, texts_df.name)
-
+    output_df = pd.DataFrame()
+    output_df[texts_df.name] = texts_df
     for word in words:
         pattern = r'\b' + re.escape(word) + r'\b'
         output_df[word] = texts_df.str.count(pattern, flags=re.IGNORECASE)
