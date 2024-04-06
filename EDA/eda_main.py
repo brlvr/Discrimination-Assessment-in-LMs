@@ -4,6 +4,7 @@ from collections import Counter
 import re
 from tqdm import tqdm
 import matplotlib.pyplot as plt
+import pandas as pd
 
 # Global Constants or Configuration
 DEBUG_MODE = False
@@ -63,7 +64,7 @@ def read_jsonl(file_path: str, num_lines: int = 0):
             races.add(line['race'])
 
 
-            gender_apperences = count_apperences_in_text(text=line['filled_template'], countfor=list(genders))
+            #gender_apperences = count_apperences_in_text(text=line['filled_template'], countfor=list(genders))
             age_apperences= 1
             race_apperences = 1
 
@@ -75,12 +76,18 @@ def read_jsonl(file_path: str, num_lines: int = 0):
 
             #check gender
             gender = line['gender']
-            genders_apperences = count_apperences_in_text(text=line['filled_template'], countfor=list(line['gender']))
+            #genders_apperences = count_apperences_in_text(text=line['filled_template'], countfor=list(line['gender']))
 
         bar_plot(data=decision_question_id_counter, title="Histogram of Decision question ID", xlabel=f'Decision question ID ({len(decision_question_id_counter)})', ylabel='Frequency')
         print(genders)
         print(races)
     return
+
+
+
+
+
+
 
 # Main Function or Entry Point
 def main():
