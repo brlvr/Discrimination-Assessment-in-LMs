@@ -1,3 +1,5 @@
 jsonlines
 tqdm
 matplotlib
+ipykernel
+pandas
