@@ -56,3 +56,11 @@ def read_jsonl(file_path: str) -> pd.DataFrame:
     df_final = pd.DataFrame(line_dicts)
 
     return df_final
+
+
+def print_and_sample_df(df: pd.DataFrame, n: int) -> pd.DataFrame:
+    print(30*'#' + f'\n DataFrame Shape => {df.shape} \n' + 30*'#')
+    if len(df) < n:
+        n = len(df)
+
+    return df.sample(n=n)
