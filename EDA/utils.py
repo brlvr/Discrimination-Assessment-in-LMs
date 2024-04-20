@@ -15,11 +15,20 @@ def count_lines(file_path: str) -> int:
     return num_lines
 
 
-def count_apperances_in_texts(texts_df: pd.DataFrame, words: list[str]) -> pd.DataFrame:
+def count_apperances_in_texts(texts_df: pd.DataFrame, words: list[str], type: str) -> pd.DataFrame:
     output_df = pd.DataFrame()
     output_df[texts_df.name] = texts_df
     for word in words:
-        pattern = r'\b' + re.escape(word) + r'\b'
+        if type == 'gender':
+            pattern = r'\b(?:' + re.escape(word) + r')\b'
+        elif type == 'race':
+            pattern = r'\b\w*\s*' + re.escape(word) + r'\s*\w*\b'
+        elif type == 'age':
+            pattern = fr'\b\w*\s*' + re.escape(word) + r'(?:-|\s)*(?:year|years)(?:-|\s)*old\s*\w*\b' 
+        else:
+            pattern = r'\b(?:' + re.escape(word) + r')\b'
+
+
         output_df[word] = texts_df.str.count(pattern, flags=re.IGNORECASE)
 
     return output_df
