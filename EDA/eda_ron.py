@@ -54,12 +54,14 @@ def FeaturesHistogram(dataset: pd.DataFrame):
         plt.title('Histogram of {}'.format(col))
         plt.show()  
 
+def CreateRaceTemplate(dataset: pd.DataFrame):
+    
 
 def main():
     print ("Ron EDA...")
     dataset = read_dataset(file_path=".\discrim-eval\explicit.jsonl", num_lines=-1)
-    PlotCharactersHistogram(dataset)
-    FeaturesHistogram(dataset)
+    #PlotCharactersHistogram(dataset)
+    #FeaturesHistogram(dataset)
 
 if __name__ == "__main__":
     main()
