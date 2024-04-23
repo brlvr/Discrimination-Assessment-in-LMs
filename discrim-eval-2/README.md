@@ -11,7 +11,7 @@ configs:
   data_files: implicit.jsonl
 ---
 
-# Dataset Card for Discrim-Eval
+# [Dataset Card for Discrim-Eval](https://huggingface.co/datasets/Anthropic/discrim-eval)
 
 ## Dataset Summary
 The data contains a diverse set of prompts covering 70 hypothetical decision scenarios, ranging from approving a loan to providing press credentials.
