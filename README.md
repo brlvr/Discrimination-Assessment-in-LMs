@@ -23,10 +23,10 @@ contributing to the broader understanding of LMs’ handling of specific ethnic 
 - [ ] Read the evaluation part
 
 ## 27/04/2024
-- [ ] Activate API (Gemini,Llama) - Gal
+- [ ] Activate API (Gemini 2/7,Llama3 8/70) - Gal
     - [ ] Try to create our own dataset
-    - [ ] Create pipline - 
-- [ ] Create/edit Implicit data (Maybe with LLM's, try chatGPT/claude) - Ron 
+    - [ ] Create inference pipline
+- [ ] Create/edit Implicit data (Maybe with LLM's, try chatGPT/claude, NER) - Ron 
     - [ ] Have a look at the current data - maybe there are already jewish scenarios
 - [ ] Evaluation - 
     - [ ] Read the article evaluation
