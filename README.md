@@ -20,7 +20,7 @@ contributing to the broader understanding of LMs’ handling of specific ethnic 
 - [ ] Investigate data (multiple gender/age and more)
 - [ ] Try to create our own dataset
 - [ ] Why take 60 yeard old white man as basline?
-- [ ] 
+- [ ] .
 
 
 
