@@ -3,3 +3,5 @@ tqdm
 matplotlib
 ipykernel
 pandas
+python-dotenv
+requests

@@ -1,0 +1,4 @@
+{
+    "dataset_path": "outputs\\datasets\\explicit-comined.jsonl",
+    "model_name": "llama3"
+}
