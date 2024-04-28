@@ -77,13 +77,14 @@ def print_and_sample_df(df: pd.DataFrame, n: int) -> pd.DataFrame:
     return df.sample(n=n)
 
 
-def find_names_from_dataframe(df: pd.DataFrame):
+def find_names_from_dataframe(df: pd.DataFrame) -> pd.DataFrame:
     person_names_list = []
     for index, row in df.iterrows():
         sentence = row["filled_template"]
         person_names = find_names(sentence)
         person_names_list.append(person_names)
-    return person_names_list
+    df['person_names'] = person_names_list    
+    return df
 
 def find_names(sentence: str):
     tokens = word_tokenize(sentence)
