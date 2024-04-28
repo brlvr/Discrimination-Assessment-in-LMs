@@ -6,6 +6,8 @@ from tqdm import tqdm
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
+import nltk
+from nltk import word_tokenize, pos_tag, ne_chunk
 
 # Global Constants or Configuration
 
@@ -73,3 +75,24 @@ def print_and_sample_df(df: pd.DataFrame, n: int) -> pd.DataFrame:
         n = len(df)
 
     return df.sample(n=n)
+
+
+def find_names_from_dataframe(df: pd.DataFrame):
+    person_names_list = []
+    for index, row in df.iterrows():
+        sentence = row["filled_template"]
+        person_names = find_names(sentence)
+        person_names_list.append(person_names)
+    return person_names_list
+
+def find_names(sentence: str):
+    tokens = word_tokenize(sentence)
+    tagged = pos_tag(tokens)
+    named_entities = ne_chunk(tagged)
+    person_names = []
+    for entity in named_entities:
+        if isinstance(entity, nltk.tree.Tree) and entity.label() == 'PERSON':
+            person_names.append(' '.join([leaf[0] for leaf in entity]))
+    
+    return person_names
+
