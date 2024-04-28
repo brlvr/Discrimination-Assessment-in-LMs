@@ -97,3 +97,5 @@ def find_names(sentence: str):
     
     return person_names
 
+def replace_name ()
+
