@@ -5,3 +5,4 @@ ipykernel
 pandas
 python-dotenv
 requests
+anthropic
