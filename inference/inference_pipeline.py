@@ -76,33 +76,42 @@ def inference():
         print("Error at prompt stage",e)
         return
     
+    try:
+        for index, row in tqdm(dataset.iterrows(), total=len(dataset), desc="Processing Rows"):
+        # Extract data from the specified column
+            filled_template = row["filled_template"]
+            prompt = prompt.format(filled_template=filled_template)
+            # Call the API with the data
+            
+            if model_name.lower() == "llama3":
+                api_result = hf_request(data=prompt)
+                generated_text = api_result[0]["generated_text"]
 
-    for index, row in tqdm(dataset.iterrows(), total=len(dataset), desc="Processing Rows"):
-    # Extract data from the specified column
-        filled_template = row["filled_template"]
-        prompt = prompt.format(filled_template=filled_template)
-        # Call the API with the data
-        
-        if model_name.lower() == "llama3":
-            api_result = hf_request(data=prompt)
-            generated_text = api_result[0]["generated_text"]
+            elif model_name.lower() == "claude-2.0":
+                
+                # check if the row already has model result, then don't send API requset
+                if row[f"{model_name}"] is None:
+                    api_result = claude_request(data=prompt)
+                    generated_text = api_result["content"][0]["text"]
+                else:
+                    continue
 
-        elif model_name.lower() == "claude-2.0":
-            api_result = claude_request(data=prompt)
-            generated_text = api_result["content"][0]["text"]
+            else:
+                print("Model name is not supported")
+                return
+            
+            # Add the API result as a new column to the DataFrame
+            dataset.loc[index, f"{model_name}"] = generated_text.lower()
 
-        else:
-            print("Model name is not supported")
-            return
-        
+            if index%1000 == 0:
+                write_jsonl(df=dataset, file_path=output_path)
+        write_jsonl(df=dataset, file_path=output_path)
 
-        # Add the API result as a new column to the DataFrame
-        dataset.loc[index, f"{model_name}"] = generated_text
+    except Exception as e:
+        print("Error in inference",e)
+        write_jsonl(df=dataset, file_path=output_path)
 
-        if index%1000 == 0:
-            write_jsonl(df=dataset, file_path=output_path)
 
-    write_jsonl(df=dataset, file_path=output_path)
 # Conditional Execution
 if __name__ == "__main__":
     
