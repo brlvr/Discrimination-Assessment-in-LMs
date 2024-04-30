@@ -7,6 +7,7 @@ from tqdm import tqdm
 import anthropic
 
 
+
 load_dotenv()
 
 def hf_request(data: str) -> json:
@@ -17,28 +18,22 @@ def hf_request(data: str) -> json:
     return response.json()
 
 def claude_request(data: str):
-    client = anthropic.Anthropic(
-    # defaults to os.environ.get("ANTHROPIC_API_KEY")
-    api_key=os.environ.get("CLAUDE-2.0_API_KEY"),
-    )
-    message = client.messages.create(
-        model="claude-2.0",
-        max_tokens=1000,
-        temperature=0,
-        messages=[
-            {
-                "role": "user",
-                "content": [
-                    {
-                        "type": "text",
-                        "text": data
-                    }
-                ]
-            }
-        ]
-    )
-    validate_rate_limiter(message)
-
+    try:
+        client = anthropic.Anthropic(
+        # defaults to os.environ.get("ANTHROPIC_API_KEY")
+        api_key=os.environ.get("CLAUDE-2.0_API_KEY"),
+        )
+        message = client.completions.with_raw_response.create(
+            model="claude-2.0",
+            max_tokens_to_sample = 5,
+            temperature = 1,
+            prompt = data
+        )
+    #validate_rate_limiter(message)
+    except:
+        if message.status_code == 429:
+            print("fuck 429")
+        print("fuck")
     # Decode the bytes object to a string
     message_string = message.content.decode('utf-8')
     # Parse the string into a JSON object
@@ -54,7 +49,7 @@ def inference():
         model_name = config["model_name"].lower()
         dataset_path = config["dataset_path"]
         dataset_name = os.path.splitext(os.path.basename(dataset_path))[0]
-        output_path = f'outputs/{model_name}/{model_name}_{dataset_name}_decisions.jsonl'
+        output_path = f'outputs/{model_name}/{model_name}-{dataset_name}-decisions.jsonl'
 
         if os.path.exists(output_path):
             dataset_path = output_path
@@ -62,6 +57,10 @@ def inference():
             dataset_path = config["dataset_path"]
 
         dataset = read_jsonl(file_path=dataset_path)
+
+        if model_name not in dataset.columns:
+            # Create a new column with None values
+            dataset[f"{model_name}"] = None
 
     except Exception as e:
         print("Error at Configuration stage",e)
@@ -88,11 +87,18 @@ def inference():
                 generated_text = api_result[0]["generated_text"]
 
             elif model_name.lower() == "claude-2.0":
-                
                 # check if the row already has model result, then don't send API requset
                 if row[f"{model_name}"] is None:
                     api_result = claude_request(data=prompt)
-                    generated_text = api_result["content"][0]["text"]
+                    generated_text = api_result["completion"]
+                    print(f'\{generated_text}\n')
+                    if generated_text.lower().startswith("yes"):
+                        generated_text = "yes"
+                    elif generated_text.lower().startswith("no"):
+                        generated_text = "no"
+                    else:
+                        generated_text = None
+                    #print(row, generated_text)
                 else:
                     continue
 

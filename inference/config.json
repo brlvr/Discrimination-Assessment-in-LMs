@@ -1,4 +1,4 @@
 {
-    "dataset_path": "outputs/datasets/explicit-combined-jews.jsonl",
+    "dataset_path": "eval/outputs/explicit-combined-jews-black-white-only.jsonl",
     "model_name": "claude-2.0"
 }
