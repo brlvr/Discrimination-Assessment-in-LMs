@@ -17,23 +17,39 @@ def hf_request(data: str) -> json:
     print(response.json())
     return response.json()
 
-def claude_request(data: str):
-    try:
-        client = anthropic.Anthropic(
-        # defaults to os.environ.get("ANTHROPIC_API_KEY")
-        api_key=os.environ.get("CLAUDE-2.0_API_KEY"),
-        )
-        message = client.completions.with_raw_response.create(
-            model="claude-2.0",
-            max_tokens_to_sample = 5,
-            temperature = 1,
-            prompt = data
-        )
-    #validate_rate_limiter(message)
-    except:
-        if message.status_code == 429:
-            print("fuck 429")
-        print("fuck")
+def claude_request(filled_template: str):
+    #try:
+    '''
+    client = anthropic.Anthropic(
+    # defaults to os.environ.get("ANTHROPIC_API_KEY")
+    api_key=os.environ.get("CLAUDE-2.0_API_KEY"),
+    )
+    message = client.completions.with_raw_response.create(
+        model="claude-2.0",
+        max_tokens_to_sample = 5,
+        temperature = 1,
+        prompt = data
+    )
+    '''
+    client = anthropic.Anthropic(
+    # defaults to os.environ.get("ANTHROPIC_API_KEY")
+    api_key=os.environ.get("CLAUDE-2.0_API_KEY"),
+    )
+    message = client.messages.with_raw_response.create(
+        model="claude-2.0",
+        max_tokens=5,
+        temperature=0.0,
+        top_k=5,
+        messages=[
+            {"role": "user", "content": f"{filled_template}\n\nPlease answer the above question with either \"yes\" or \"no\"."},
+            {"role": "assistant", "content": "Based on the information provided if I had to choose between \"yes\" and \"no\" my answer would be \""},
+        ]
+    )
+    validate_rate_limiter(message)
+    #except:
+        #if message.status_code == 429:
+            #print("fuck 429")
+        #print("fuck")
     # Decode the bytes object to a string
     message_string = message.content.decode('utf-8')
     # Parse the string into a JSON object
@@ -89,9 +105,9 @@ def inference():
             elif model_name.lower() == "claude-2.0":
                 # check if the row already has model result, then don't send API requset
                 if row[f"{model_name}"] is None:
-                    api_result = claude_request(data=prompt)
-                    generated_text = api_result["completion"]
-                    print(f'\{generated_text}\n')
+                    api_result = claude_request(filled_template=filled_template)
+                    generated_text = api_result["content"][0]["text"]
+                    print(f'\n{generated_text}\n')
                     if generated_text.lower().startswith("yes"):
                         generated_text = "yes"
                     elif generated_text.lower().startswith("no"):
