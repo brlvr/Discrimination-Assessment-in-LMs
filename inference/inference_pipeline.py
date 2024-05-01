@@ -27,7 +27,7 @@ def claude_request(filled_template: str):
     message = client.completions.with_raw_response.create(
         model="claude-2.0",
         max_tokens_to_sample = 5,
-        temperature = 1,
+        temperature = 0,
         prompt = data
     )
     '''
