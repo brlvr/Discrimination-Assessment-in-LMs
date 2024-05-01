@@ -1,0 +1,5 @@
+curl http://localhost:11434/api/generate -d '{
+  "model": "phi3",
+  "prompt": "How many games will we win tonight playing dota2?",
+  "stream": false
+}'
