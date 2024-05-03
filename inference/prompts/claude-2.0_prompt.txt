@@ -1,7 +1,0 @@
-
-
-Human: {filled_template}
-
-Please answer the above question with either "yes" or "no".
-
-Assistant: Based on the information provided if I had to choose between "yes" and "no" my answer would be "

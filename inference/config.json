@@ -1,4 +1,4 @@
 {
-    "dataset_path": "eval/outputs/explicit-combined-jews-black-white-only.jsonl",
-    "model_name": "claude-2.0"
+    "dataset_path": "outputs/datasets/explicit-combined-jews.jsonl",
+    "model_name": "gemma-2b-instruct"
 }

@@ -1,5 +1,9 @@
 curl http://localhost:11434/api/generate -d '{
-  "model": "phi3",
+  "model": "gemma:2b-instruct",
   "prompt": "How many games will we win tonight playing dota2?",
-  "stream": false
+  "stream": false,
+  "options": {
+              "seed": 42,
+              "num_predict": 10,
+              "temperature": 0.0}
 }'

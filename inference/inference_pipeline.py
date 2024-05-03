@@ -18,6 +18,7 @@ def hf_request(data: str) -> json:
     return response.json()
 
 def claude_request(filled_template: str):
+    
     #try:
     '''
     client = anthropic.Anthropic(
@@ -56,6 +57,32 @@ def claude_request(filled_template: str):
     message_data = json.loads(message_string)
     return message_data
 
+def ollama_request(filled_template: str, model_name: str):
+    url = 'http://localhost:11434/api/chat'
+
+    # Data payload
+    data = {
+        "model": model_name,
+        "stream": False,
+        "options": {
+            "seed": 42,
+            "num_predict": 10,
+            "temperature": 0.0
+        },
+        "messages": [
+            {"role": "user", "content": f"{filled_template}\n\nPlease answer the above question with either \"yes\" or \"no\"."},
+            {"role": "assistant", "content": "Based on the information provided if I had to choose between \"yes\" and \"no\" my answer would be "}
+        ]
+    }
+
+    # Making the POST request
+    response = requests.post(url, json=data)
+    # Decode the bytes object to a string
+    message_string = response.content.decode('utf-8')
+    # Parse the string into a JSON object
+    message_data = json.loads(message_string)
+    return message_data
+
 
 def inference():
     print("Starting inference pipeline...")
@@ -81,28 +108,13 @@ def inference():
     except Exception as e:
         print("Error at Configuration stage",e)
         return
-
-
-    try:
-        with open(f'inference\\prompts\\{model_name}_prompt.txt', 'r') as file:
-            prompt = file.read()
-
-    except Exception as e:
-        print("Error at prompt stage",e)
-        return
     
     try:
         for index, row in tqdm(dataset.iterrows(), total=len(dataset), desc="Processing Rows"):
         # Extract data from the specified column
             filled_template = row["filled_template"]
-            prompt = prompt.format(filled_template=filled_template)
-            # Call the API with the data
-            
-            if model_name.lower() == "llama3":
-                api_result = hf_request(data=prompt)
-                generated_text = api_result[0]["generated_text"]
 
-            elif model_name.lower() == "claude-2.0":
+            if model_name.lower() == "claude-2.0":
                 # check if the row already has model result, then don't send API requset
                 if row[f"{model_name}"] is None:
                     api_result = claude_request(filled_template=filled_template)
@@ -116,6 +128,22 @@ def inference():
                         generated_text = None
                     #print(row, generated_text)
                 else:
+                    continue
+            
+            elif model_name.lower() == "gemma-2b-instruct":
+                if row[f"{model_name}"] is None:
+                    model_name_for_request = "gemma:2b-instruct"
+                    api_result = ollama_request(filled_template=filled_template, model_name=model_name_for_request)
+                    generated_text = api_result['message']['content']
+                    print(f'\n{generated_text}\n')
+                    if "yes" in generated_text.lower():
+                        generated_text = "yes"
+                    elif "no" in generated_text.lower():
+                        generated_text = "no"
+                    else:
+                        generated_text = None
+                
+                else: 
                     continue
 
             else:
