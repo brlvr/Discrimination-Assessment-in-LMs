@@ -153,7 +153,7 @@ def inference():
             # Add the API result as a new column to the DataFrame
             dataset.loc[index, f"{model_name}"] = generated_text.lower()
 
-            if index%1000 == 0:
+            if index%200 == 0:
                 write_jsonl(df=dataset, file_path=output_path)
         write_jsonl(df=dataset, file_path=output_path)
 
