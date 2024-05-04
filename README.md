@@ -6,9 +6,17 @@ and analyzing the responses for patterns of discrimination. The project would al
 contributing to the broader understanding of LMs’ handling of specific ethnic and national identities. For more details on the original paper, you can access it [[1]](#1).
 
 
-## Missions
-- [ ] Read the article
-- [ ] Resources
+## Base Missions
+- [X] Read the article (ongoing)
+- [ ] Investigate how LMs handle decisions involving Jewish people and Israel-associated individuals.
+- [ ] Generating decision-making scenarios relevant to Jewish people - Explicit dataset.
+- [ ] Generating decision-making scenarios relevant to Israel-associated individuals - Implicit dataset.
+  - [ ]  test
+
+
+
+
+- [ ] Resources - API's/Local
 - [ ] Dataset - explore prompts, add more categories related to our work
 - [ ] Evaluation - According to the paper, maybe find new ones?
 - [ ] Models - Gemma-2b, Gemma-7b, Claude?, more?
