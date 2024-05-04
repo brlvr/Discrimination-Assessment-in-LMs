@@ -45,7 +45,18 @@ contributing to the broader understanding of LMs’ handling of specific ethnic 
 - [ ] Investigate data (multiple gender/age and more)
 - [ ] Try to create our own dataset
 - [ ] Why take 60 yeard old white man as basline?
-- [ ] .
+- [ ] Read the evaluation part
+
+## 27/04/2024
+- [ ] Activate API (Gemini 2/7,Llama3 8/70) - Gal
+    - [ ] Try to create our own dataset
+    - [ ] Create inference pipline
+- [ ] Create/edit Implicit data (Maybe with LLM's, try chatGPT/claude, NER) - Ron 
+    - [ ] Have a look at the current data - maybe there are already jewish scenarios
+- [ ] Evaluation - 
+    - [ ] Read the article evaluation
+    - [ ] Explore for more evaluation techniques
+
 
 ## 01/05/2024
 - [ ] Use ollama to predict answers (completion) from various models (check what fits on our local resources).
