@@ -6,17 +6,32 @@ and analyzing the responses for patterns of discrimination. The project would al
 contributing to the broader understanding of LMs’ handling of specific ethnic and national identities. For more details on the original paper, you can access it [[1]](#1).
 
 
-## Base Missions
+## Missions
 - [X] Read the article (ongoing)
 - [ ] Investigate how LMs handle decisions involving Jewish people and Israel-associated individuals.
 - [ ] Generating decision-making scenarios relevant to Jewish people - Explicit dataset.
+  - [X] Explicit EDA.
+  - [ ] Add to RACE category "Jewish".
 - [ ] Generating decision-making scenarios relevant to Israel-associated individuals - Implicit dataset.
-  - [ ]  test
+  - [ ] Implicit EDA.
+  - [ ]  Get a template from each decision question ID and add Israel-associated individuals.
+  - [ ] Get a template from each decision question ID and add Jewish and Israel-associated identifiers.
+- [ ] Analyzing the responses for patterns of discrimination.
+  - [ ] Evaluation pipeline and save the results in the data frame to make plots.
+- [ ] Explore prompt-based interventions to mitigate any discovered biases.
 
+## Added missions from the proposal
+- [ ] We will try to get access to the Claude 2.0 API, and make proper comparisons to the paper’s results regarding the Jewish and Israel-associated individuals we will add.
+- [ ] Inference on different models and compare the results to our Cluade 2.0 baseline or paper's results.
+- [ ] Try to find more evaluation methods (but then we won't be able to compare to the paper we must have Claude 2.0 baseline results)
 
-
-
-- [ ] Resources - API's/Local
+## Future work
+- [ ] Create a dataset where everyone is Jewish concerning the original dataset, and add religion to the base dataset to see if the discrimination is getting higher or not. (We haven't done it since we need Claude 2.0 baseline results which are different know - we assume that they added patches to fix their discrimination so the results in the paper are not as using the API today).
+  - [ ] Add the word Jewish to every example in the Explicit dataset.
+  - [ ] Evaluate concerning to white males age 60 all the new Jewish dataset.
+  - [ ] Analyzing the responses for patterns of discrimination.
+     
+  
 - [ ] Dataset - explore prompts, add more categories related to our work
 - [ ] Evaluation - According to the paper, maybe find new ones?
 - [ ] Models - Gemma-2b, Gemma-7b, Claude?, more?
