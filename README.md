@@ -47,8 +47,12 @@ contributing to the broader understanding of LMs’ handling of specific ethnic 
 - [ ] Why take 60 yeard old white man as basline?
 - [ ] .
 
-
-
+## 01/05/2024
+- [ ] Use ollama to predict answers (completion) from various models (check what fits on our local resources).
+- [X] Read the Article (ongoing).
+- [ ] Implicit dataset - add jewish examples.
+- [ ] Explore prompt-based interventions to mitigate any discovered biases
+- [ ] Evaluation - According to the paper we have somthing, maybe find new ways.
 
 ## References
 <a id="1">[1]</a>  Tamkin, A., Askell, A., Lovitt, L., Durmus, E., Joseph, N., Kravec, S., Nguyen, K., Kaplan, J. and Ganguli, D., 2023. Evaluating and mitigating discrimination in language model decisions. arXiv preprint [arXiv:2312.03689](https://arxiv.org/abs/2312.03689).
