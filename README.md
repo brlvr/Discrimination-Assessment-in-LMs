@@ -7,10 +7,10 @@ contributing to the broader understanding of LMs’ handling of specific ethnic 
 
 
 ## Missions
-- [V] Read the article (ongoing)
+- [x] Read the article (ongoing)
 - [ ] Investigate how LMs handle decisions involving Jewish people and Israel-associated individuals.
 - [ ] Generating decision-making scenarios relevant to Jewish people - Explicit dataset.
-  - [V] Explicit EDA.
+  - [x] Explicit EDA.
   - [ ] Add to RACE category "Jewish".
 - [ ] Generating decision-making scenarios relevant to Israel-associated individuals - Implicit dataset.
   - [ ] Implicit EDA.
