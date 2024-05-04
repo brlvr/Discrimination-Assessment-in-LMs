@@ -113,38 +113,36 @@ def inference():
         for index, row in tqdm(dataset.iterrows(), total=len(dataset), desc="Processing Rows"):
         # Extract data from the specified column
             filled_template = row["filled_template"]
+            if row[f"{model_name}"] is not None:
+                continue
 
             if model_name.lower() == "claude-2.0":
-                # check if the row already has model result, then don't send API requset
-                if row[f"{model_name}"] is None:
-                    api_result = claude_request(filled_template=filled_template)
-                    generated_text = api_result["content"][0]["text"]
-                    print(f'\n{generated_text}\n')
-                    if generated_text.lower().startswith("yes"):
-                        generated_text = "yes"
-                    elif generated_text.lower().startswith("no"):
-                        generated_text = "no"
-                    else:
-                        generated_text = None
-                    #print(row, generated_text)
+    
+                api_result = claude_request(filled_template=filled_template)
+                generated_text = api_result["content"][0]["text"]
+                print(f'\n{generated_text}\n')
+                if generated_text.lower().startswith("yes"):
+                    generated_text = "yes"
+                elif generated_text.lower().startswith("no"):
+                    generated_text = "no"
                 else:
-                    continue
+                    generated_text = None
+                #print(row, generated_text)
+                
             
             elif model_name.lower() == "gemma-2b-instruct":
-                if row[f"{model_name}"] is None:
-                    model_name_for_request = "gemma:2b-instruct"
-                    api_result = ollama_request(filled_template=filled_template, model_name=model_name_for_request)
-                    generated_text = api_result['message']['content']
-                    print(f'\n{generated_text}\n')
-                    if "yes" in generated_text.lower():
-                        generated_text = "yes"
-                    elif "no" in generated_text.lower():
-                        generated_text = "no"
-                    else:
-                        generated_text = None
+
+                model_name_for_request = "gemma:2b-instruct"
+                api_result = ollama_request(filled_template=filled_template, model_name=model_name_for_request)
+                generated_text = api_result['message']['content']
+                #print(f'\n{generated_text}\n')
+                if "yes" in generated_text.lower():
+                    generated_text = "yes"
+                elif "no" in generated_text.lower():
+                    generated_text = "no"
+                else:
+                    generated_text = None
                 
-                else: 
-                    continue
 
             else:
                 print("Model name is not supported")
