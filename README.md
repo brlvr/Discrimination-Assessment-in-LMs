@@ -15,7 +15,27 @@ contributing to the broader understanding of LMs’ handling of specific ethnic 
 | implicit-fix-combined-jews   | ✖️       | ✖️        | ✖️       | ✖️      |
 | more?                        | ✖️       | ✖️        | ✖️       | ✖️      |
 
+## Models Description
+### [gemma-1.1-2b-it](https://huggingface.co/google/gemma-1.1-2b-it)
+
+### [gemma-1.1-2b-it-GGUF](https://huggingface.co/google/gemma-1.1-2b-it-GGUF)
+
+### [gemma-1.1-7b-it](https://huggingface.co/google/gemma-1.1-7b-it)
+
+### [gemma-1.1-7b-it-GGUF](https://huggingface.co/google/gemma-1.1-7b-it)
+
+
 ## Datasets Description
+### discrim-eval
+- [ ] need to talk about the original dataset explicit and implicit
+### explicit-combined-jews
+- [ ] add explenation and add link inside repo to the data
+### explicit-all-jews
+- [ ] add explenation and add link inside repo to the data
+### implicit-fix-combined-jews
+- [ ] add explenation and add link inside repo to the data
+### more?
+- [ ] add explenation and add link inside repo to the data
 
 
 ## Missions
