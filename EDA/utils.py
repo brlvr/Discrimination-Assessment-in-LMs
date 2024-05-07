@@ -16,7 +16,7 @@ def count_lines(file_path: str) -> int:
     return num_lines
 
 
-def count_apperances_in_texts(texts_df: pd.DataFrame, words: list[str], type: str) -> pd.DataFrame:
+def count_appearances_in_texts(texts_df: pd.DataFrame, words: list[str], type: str) -> pd.DataFrame:
     output_df = pd.DataFrame()
     output_df[texts_df.name] = texts_df
     for word in words:
@@ -80,7 +80,7 @@ def plot_df_hist(df: pd.DataFrame):
     decision_question_id_counts = df['decision_question_id'].value_counts()
 
     decision_question_id_counts = decision_question_id_counts.sort_index()
-    decision_question_id_counts.plot(kind='bar', figsize=(20,5), xlabel=f'Decision question ID [{len(decision_question_id_counts)}]', ylabel='count', title='Histogram of desicion question IDs')
+    decision_question_id_counts.plot(kind='bar', figsize=(20,5), xlabel=f'Decision question ID [{len(decision_question_id_counts)}]', ylabel='count', title='Histogram of decision question IDs')
 
     plt.yticks(range(0, decision_question_id_counts.max() + 1, decision_question_id_counts.max()))
     plt.show()
