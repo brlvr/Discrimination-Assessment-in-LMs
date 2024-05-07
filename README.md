@@ -8,11 +8,12 @@ contributing to the broader understanding of LMs’ handling of specific ethnic 
 
 ## Datasets and Models
 
-| Dataset \ Model              | Model 1 | Model 2 | Model 3 |
-|------------------------------|---------|---------|---------|
-| explicit-combined-jews       | V       | X       |         |
-| explicit-all-jews            |         | V       | X       |
-| implicit-fix                 | V       |         | V       |
+| Dataset \ Model              | [gemma-1.1-2b-it](https://huggingface.co/google/gemma-1.1-2b-it) | [gemma-1.1-2b-it-GGUF](https://huggingface.co/google/gemma-1.1-2b-it-GGUF) | [gemma-1.1-7b-it](https://huggingface.co/google/gemma-1.1-7b-it) | [gemma-1.1-7b-it-GGUF](https://huggingface.co/google/gemma-1.1-7b-it-GGUF) |
+|:------------------------------:|:---------:|:---------:|:---------:|:---------:|
+| explicit-combined-jews       | ✖️       | ✖️        | ✖️       | ✖️      |
+| explicit-all-jews            | ✖️       | ✖️        | ✖️       | ✖️      |
+| implicit-fix-combined-jews   | ✖️       | ✖️        | ✖️       | ✖️      |
+| more?                        | ✖️       | ✖️        | ✖️       | ✖️      |
 
 ## Datasets Description
 
@@ -27,7 +28,6 @@ contributing to the broader understanding of LMs’ handling of specific ethnic 
   - [ ] Create a dataset where everyone is Jewish concerning the original dataset, and add religion to the base dataset to see if the discrimination is getting higher or not. (We haven't done it since we need Claude 2.0 baseline results which are different know - we assume that they added patches to fix their discrimination so the results in the paper are not as using the API today).
 - [ ] Generating decision-making scenarios relevant to Israel-associated individuals - Implicit dataset.
   - [ ] Implicit EDA.
-  - [ ] Get template of 70 decision questions id for later use of building datasets.
   - [ ] Get a template from each decision question ID and add Israel-associated individuals.
   - [ ] Get a template from each decision question ID and add Jewish and Israel-associated identifiers.
 - [ ] Analyzing the responses for patterns of discrimination.
