@@ -6,6 +6,17 @@ and analyzing the responses for patterns of discrimination. The project would al
 contributing to the broader understanding of LMs’ handling of specific ethnic and national identities. For more details on the original paper, you can access it [[1]](#1).
 
 
+## Datasets and Models
+
+| Dataset \ Model              | Model 1 | Model 2 | Model 3 |
+|------------------------------|---------|---------|---------|
+| explicit-combined-jews       | V       | X       |         |
+| explicit-all-jews            |         | V       | X       |
+| implicit-fix                 | V       |         | V       |
+
+## Datasets Description
+
+
 ## Missions
 - [x] Read the article (ongoing)
 - [ ] Investigate how LMs handle decisions involving Jewish people and Israel-associated individuals.
