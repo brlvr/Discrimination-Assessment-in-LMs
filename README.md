@@ -11,12 +11,13 @@ contributing to the broader understanding of LMs’ handling of specific ethnic 
 - [ ] Investigate how LMs handle decisions involving Jewish people and Israel-associated individuals.
 - [ ] Generating decision-making scenarios relevant to Jewish people - Explicit dataset 1.
   - [x] Explicit EDA.
-  - [ ] Add to RACE category "Jewish".
+  - [x] Add to RACE category "Jewish".
 - [ ] Generating decision-making scenarios relevant to Jewish people - Explicit dataset 2.
   - [ ] Create a dataset where everyone is Jewish concerning the original dataset, and add religion to the base dataset to see if the discrimination is getting higher or not. (We haven't done it since we need Claude 2.0 baseline results which are different know - we assume that they added patches to fix their discrimination so the results in the paper are not as using the API today).
 - [ ] Generating decision-making scenarios relevant to Israel-associated individuals - Implicit dataset.
   - [ ] Implicit EDA.
-  - [ ]  Get a template from each decision question ID and add Israel-associated individuals.
+  - [ ] Get template of 70 decision questions id for later use of building datasets.
+  - [ ] Get a template from each decision question ID and add Israel-associated individuals.
   - [ ] Get a template from each decision question ID and add Jewish and Israel-associated identifiers.
 - [ ] Analyzing the responses for patterns of discrimination.
   - [ ] Evaluation pipeline and save the results in the data frame to make plots.
