@@ -52,6 +52,7 @@ Also, some examples fixing was needed according to the findings in the EDA.
 This dataset is a variation of the original explicit dataset, we added in each _filled_template_  after the _race_ an ethnicity - Jew. Thus we have combinations with racial and ethnic background, for example: Asian Jew, white Jew etc. 
 
 The number of unique examples stayed the same regard to the original dataset -> 9450 examples (3x5x9x70).
+For further details you can see the EDA and how we built the new dataset.
 
 **_Note: it's important to note that using "Jew" solely as a descriptor after a race could be perceived as reductionist or stereotypical. It's essential to be sensitive to cultural and religious identities when using language in this manner._**
 
