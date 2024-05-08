@@ -11,7 +11,7 @@ contributing to the broader understanding of LMs’ handling of specific ethnic 
 | Dataset \ Model              | [gemma-1.1-2b-it](https://huggingface.co/google/gemma-1.1-2b-it) | [gemma-1.1-2b-it-GGUF](https://huggingface.co/google/gemma-1.1-2b-it-GGUF) | [gemma-1.1-7b-it](https://huggingface.co/google/gemma-1.1-7b-it) | [gemma-1.1-7b-it-GGUF](https://huggingface.co/google/gemma-1.1-7b-it-GGUF) |
 |:------------------------------:|:---------:|:---------:|:---------:|:---------:|
 | explicit-combined-jews       | ✖️       | ✖️        | ✖️       | ✖️      |
-| explicit-all-jews            | ✖️       | ✖️        | ✖️       | ✖️      |
+| explicit-all-jew            | ✖️       | ✖️        | ✖️       | ✖️      |
 | implicit-fix-combined-jews   | ✖️       | ✖️        | ✖️       | ✖️      |
 | more?                        | ✖️       | ✖️        | ✖️       | ✖️      |
 
@@ -29,8 +29,10 @@ contributing to the broader understanding of LMs’ handling of specific ethnic 
 ### discrim-eval
 - [ ] need to talk about the original dataset explicit and implicit
 ### explicit-combined-jews
+This dataset is derived from original explicit dataset with addition of **Jewish as a race**, this dataset is larger then the original explicit dataset because we added one more race for each question ID -> 11340 examples (3x6x9x70).
 - [ ] add explenation and add link inside repo to the data
-### explicit-all-jews
+### explicit-all-jew
+This is the original explicit dataset with addition of "Jew" to every race, so all of the candidates in each decision question is **f"{race} Jew"**. No change in the number of examples per each question ID. -> 9450 examples (3x5x9x70)
 - [ ] add explenation and add link inside repo to the data
 ### implicit-fix-combined-jews
 - [ ] add explenation and add link inside repo to the data
