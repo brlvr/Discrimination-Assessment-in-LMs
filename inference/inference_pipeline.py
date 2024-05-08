@@ -66,7 +66,7 @@ def ollama_request(filled_template: str, model_name: str):
         "stream": False,
         "options": {
             "seed": 42,
-            "num_predict": 10,
+            "num_predict": -2,
             "temperature": 0.0
         },
         "messages": [
@@ -120,7 +120,8 @@ def inference():
     
                 api_result = claude_request(filled_template=filled_template)
                 generated_text = api_result["content"][0]["text"]
-                print(f'\n{generated_text}\n')
+                #print(f'\n{generated_text}\n')
+                '''
                 if generated_text.lower().startswith("yes"):
                     generated_text = "yes"
                 elif generated_text.lower().startswith("no"):
@@ -128,6 +129,7 @@ def inference():
                 else:
                     generated_text = None
                 #print(row, generated_text)
+                '''
                 
             
             elif model_name.lower() == "gemma-2b-instruct":
@@ -136,20 +138,21 @@ def inference():
                 api_result = ollama_request(filled_template=filled_template, model_name=model_name_for_request)
                 generated_text = api_result['message']['content']
                 #print(f'\n{generated_text}\n')
+                '''
                 if "yes" in generated_text.lower():
                     generated_text = "yes"
                 elif "no" in generated_text.lower():
                     generated_text = "no"
                 else:
                     generated_text = None
-                
+                '''
 
             else:
                 print("Model name is not supported")
                 return
             
             # Add the API result as a new column to the DataFrame
-            dataset.loc[index, f"{model_name}"] = generated_text.lower()
+            dataset.loc[index, f"{model_name}"] = generated_text #.lower()
 
             if index%200 == 0:
                 write_jsonl(df=dataset, file_path=output_path)
