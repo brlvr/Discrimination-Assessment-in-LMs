@@ -6,7 +6,7 @@ and analyzing the responses for patterns of discrimination. The project would al
 contributing to the broader understanding of LMs’ handling of specific ethnic and national identities. For more details on the original paper, you can access it [[1]](#1).
 
 
-## Datasets and Models
+## [Datasets](outputs\datasets) and Models
 
 | Dataset \ Model              | [gemma-1.1-2b-it](https://huggingface.co/google/gemma-1.1-2b-it) | [gemma-1.1-2b-it-GGUF](https://huggingface.co/google/gemma-1.1-2b-it-GGUF) | [gemma-1.1-7b-it](https://huggingface.co/google/gemma-1.1-7b-it) | [gemma-1.1-7b-it-GGUF](https://huggingface.co/google/gemma-1.1-7b-it-GGUF) |
 |:------------------------------:|:---------:|:---------:|:---------:|:---------:|
