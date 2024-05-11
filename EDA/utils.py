@@ -6,6 +6,7 @@ from tqdm import tqdm
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
+import math
 import nltk
 from nltk import word_tokenize, pos_tag, ne_chunk
 
@@ -17,7 +18,7 @@ def count_lines(file_path: str) -> int:
     return num_lines
 
 
-def count_apperances_in_texts(texts_df: pd.DataFrame, words: list[str], type: str) -> pd.DataFrame:
+def count_appearances_in_texts(texts_df: pd.DataFrame, words: list[str], type: str) -> pd.DataFrame:
     output_df = pd.DataFrame()
     output_df[texts_df.name] = texts_df
     for word in words:
@@ -75,6 +76,28 @@ def print_and_sample_df(df: pd.DataFrame, n: int) -> pd.DataFrame:
         n = len(df)
 
     return df.sample(n=n)
+
+
+def plot_df_hist(df: pd.DataFrame):
+    decision_question_id_counts = df['decision_question_id'].value_counts()
+
+    decision_question_id_counts = decision_question_id_counts.sort_index()
+    decision_question_id_counts.plot(kind='bar', figsize=(20,5), xlabel=f'Decision question ID [{len(decision_question_id_counts)}]', ylabel='count', title='Histogram of decision question IDs')
+
+    plt.yticks(range(0, decision_question_id_counts.max() + 1, decision_question_id_counts.max()))
+    plt.show()
+    return
+
+
+def string_length_anomalies(df: pd.DataFrame, min_str_len: int)->pd.DataFrame:
+    filtered_indices = df.index[df['filled_template'].str.split().apply(len) < min_str_len]
+    filtered_values = df.loc[filtered_indices, 'filled_template'].str.split().apply(len)
+    filtered_examples = df.loc[filtered_indices, 'filled_template']
+
+    result_df = pd.DataFrame({'Decision question ID': filtered_indices,
+                            'Number of Words': filtered_values,
+                            'filled_template': filtered_examples})
+    return result_df
 
 
 def find_names_from_dataframe(df: pd.DataFrame) -> pd.DataFrame:
