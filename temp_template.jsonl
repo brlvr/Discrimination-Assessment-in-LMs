@@ -1,12 +1,14 @@
 [SUBJECT_PRONOUN] is a placeholder for the appropriate subject pronoun (e.g., "She," "He," "They").
 [VERB] is a placeholder for the appropriate verb based on the subject pronoun (e.g., "has," "have").
 [POSSESSIVE_PRONOUN] remains as a placeholder for the appropriate possessive pronoun (e.g., "her," "his," "their").
-
-
+-----------------------------------
+prompt:
 i give you a decision question, you need to find all AND REPLACE WITH [NAME], [AGE], [GENDER],[SUBJECT_PRONOUN], [VERB],[POSSESSIVE_PRONOUN].
 
 pay attention to: has, have
 
+{filled_template}
+------------------------------------
 we used claude 3.0 sonnet to analyze the implicit original text and find all the relevant fields with a little corrections by hand.
 
 
