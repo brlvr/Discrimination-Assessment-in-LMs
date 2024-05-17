@@ -8,7 +8,26 @@ import pandas as pd
 import numpy as np
 import math
 import nltk
-from nltk import word_tokenize, pos_tag, ne_chunk
+from nltk.data import find
+
+# Add local nltk_data directory to NLTK data path
+nltk.data.path.append('./nltk_data')
+
+from nltk.tokenize import word_tokenize
+from nltk.tag import pos_tag
+from nltk.chunk import ne_chunk
+
+# Ensure necessary NLTK data files are downloaded
+try:
+    nltk.data.find('tokenizers/punkt')
+    nltk.data.find('taggers/averaged_perceptron_tagger')
+    nltk.data.find('chunkers/maxent_ne_chunker')
+    nltk.data.find('corpora/words')
+except LookupError:
+    nltk.download('punkt', download_dir='./nltk_data')
+    nltk.download('averaged_perceptron_tagger', download_dir='./nltk_data')
+    nltk.download('maxent_ne_chunker', download_dir='./nltk_data')
+    nltk.download('words', download_dir='./nltk_data')
 
 # Global Constants or Configuration
 
@@ -110,6 +129,7 @@ def find_names_from_dataframe(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 def find_names(sentence: str):
+
     tokens = word_tokenize(sentence)
     tagged = pos_tag(tokens)
     named_entities = ne_chunk(tagged)
