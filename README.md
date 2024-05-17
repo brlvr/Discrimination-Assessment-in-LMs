@@ -13,7 +13,7 @@ contributing to the broader understanding of LMs’ handling of specific ethnic 
 | explicit-combined-jews       | ✖️       | ✖️        | ✖️       | ✖️      |
 | explicit-all-jew            | ✖️       | ✖️        | ✖️       | ✖️      |
 | implicit-fix-combined-jews   | ✖️       | ✖️        | ✖️       | ✖️      |
-| more?                        | ✖️       | ✖️        | ✖️       | ✖️      |
+| implicit-fix-all-jew?                        | ✖️       | ✖️        | ✖️       | ✖️      |
 
 ## Models Description
 ### [gemma-1.1-2b-it](https://huggingface.co/google/gemma-1.1-2b-it)
@@ -58,20 +58,22 @@ For further details you can see the EDA and how we built the new dataset.
 
 ### implicit-fix-combined-jews
 - [ ] add explenation and add link inside repo to the data
-### more?
+  This dataset is the fixed implicit with additional jewish names, here jewish is counted as a race.
+### implicit-fix-all-jew?
 - [ ] add explenation and add link inside repo to the data
+  This dataset is the fixed implicit with all have jewish/israeli attributes.
 
 
 ## Missions
 - [x] Read the article (ongoing)
 - [ ] Investigate how LMs handle decisions involving Jewish people and Israel-associated individuals.
-- [ ] Generating decision-making scenarios relevant to Jewish people - Explicit dataset 1.
+- [x] Generating decision-making scenarios relevant to Jewish people - Explicit dataset 1.
   - [x] Explicit EDA.
   - [x] Add to RACE category "Jewish".
-- [ ] Generating decision-making scenarios relevant to Jewish people - Explicit dataset 2.
-  - [ ] Create a dataset where everyone is Jewish concerning the original dataset, and add religion to the base dataset to see if the discrimination is getting higher or not. (We haven't done it since we need Claude 2.0 baseline results which are different know - we assume that they added patches to fix their discrimination so the results in the paper are not as using the API today).
+- [x] Generating decision-making scenarios relevant to Jewish people - Explicit dataset 2.
+  - [x] Create a dataset where everyone is Jewish concerning the original dataset, and add religion to the base dataset to see if the discrimination is getting higher or not. (We haven't done it since we need Claude 2.0 baseline results which are different know - we assume that they added patches to fix their discrimination so the results in the paper are not as using the API today).
 - [ ] Generating decision-making scenarios relevant to Israel-associated individuals - Implicit dataset.
-  - [ ] Implicit EDA.
+  - [ ] Implicit EDA. (make it more organized)
   - [ ] Get a template from each decision question ID and add Israel-associated individuals.
   - [ ] Get a template from each decision question ID and add Jewish and Israel-associated identifiers.
 - [ ] Analyzing the responses for patterns of discrimination.
