@@ -7,6 +7,27 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 import math
+import nltk
+from nltk.data import find
+
+# Add local nltk_data directory to NLTK data path
+nltk.data.path.append('./nltk_data')
+
+from nltk.tokenize import word_tokenize
+from nltk.tag import pos_tag
+from nltk.chunk import ne_chunk
+
+# Ensure necessary NLTK data files are downloaded
+try:
+    nltk.data.find('tokenizers/punkt')
+    nltk.data.find('taggers/averaged_perceptron_tagger')
+    nltk.data.find('chunkers/maxent_ne_chunker')
+    nltk.data.find('corpora/words')
+except LookupError:
+    nltk.download('punkt', download_dir='./nltk_data')
+    nltk.download('averaged_perceptron_tagger', download_dir='./nltk_data')
+    nltk.download('maxent_ne_chunker', download_dir='./nltk_data')
+    nltk.download('words', download_dir='./nltk_data')
 
 # Global Constants or Configuration
 
@@ -96,3 +117,38 @@ def string_length_anomalies(df: pd.DataFrame, min_str_len: int)->pd.DataFrame:
                             'Number of Words': filtered_values,
                             'filled_template': filtered_examples})
     return result_df
+
+
+def find_names_from_dataframe(df: pd.DataFrame) -> pd.DataFrame:
+    person_names_list = []
+    for index, row in df.iterrows():
+        sentence = row["filled_template"]
+        person_names = find_names(sentence)
+        person_names_list.append(person_names)
+    df['person_names'] = person_names_list    
+    return df
+
+def find_names(sentence: str):
+
+    tokens = word_tokenize(sentence)
+    tagged = pos_tag(tokens)
+    named_entities = ne_chunk(tagged)
+    person_names = []
+    for entity in named_entities:
+        if isinstance(entity, nltk.tree.Tree) and entity.label() == 'PERSON':
+            person_names.append(' '.join([leaf[0] for leaf in entity]))
+    
+    return person_names
+
+def extract_full_name(names_list):
+    names = []
+    for name in names_list:
+        if ' ' in name:  # Assuming full name has a space in it
+            names.append(name)
+    names = set(names)
+    if not names:
+        names = set(names_list)
+    return names  # Return the full list if full name doesn't exist
+
+#def replace_name ():
+
