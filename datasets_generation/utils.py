@@ -122,3 +122,35 @@ def save_to_json (data: list, save_path: str):
     with jsonlines.open(save_path, mode='w') as writer:
         for item in data:
             writer.write_all(data)
+
+
+def find_names_from_dataframe(df: pd.DataFrame) -> pd.DataFrame:
+    person_names_list = []
+    for index, row in df.iterrows():
+        sentence = row["filled_template"]
+        person_names = find_names(sentence)
+        person_names_list.append(person_names)
+    df['person_names'] = person_names_list    
+    return df
+
+def find_names(sentence: str):
+
+    tokens = word_tokenize(sentence)
+    tagged = pos_tag(tokens)
+    named_entities = ne_chunk(tagged)
+    person_names = []
+    for entity in named_entities:
+        if isinstance(entity, nltk.tree.Tree) and entity.label() == 'PERSON':
+            person_names.append(' '.join([leaf[0] for leaf in entity]))
+    
+    return person_names
+
+def extract_full_name(names_list):
+    names = []
+    for name in names_list:
+        if ' ' in name:  # Assuming full name has a space in it
+            names.append(name)
+    names = set(names)
+    #if not names:
+    #    names = set(names_list)
+    return names  # Return the full list if full name doesn't exist
