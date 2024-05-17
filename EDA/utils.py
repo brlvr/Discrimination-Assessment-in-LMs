@@ -145,8 +145,8 @@ def extract_full_name(names_list):
         if ' ' in name:  # Assuming full name has a space in it
             names.append(name)
     names = set(names)
-    if not names:
-        names = set(names_list)
+    #if not names:
+    #    names = set(names_list)
     return names  # Return the full list if full name doesn't exist
 
 #def replace_name ():
