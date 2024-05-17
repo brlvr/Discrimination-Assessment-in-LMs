@@ -98,7 +98,7 @@ def string_length_anomalies(df: pd.DataFrame, min_str_len: int)->pd.DataFrame:
                             'filled_template': filtered_examples})
     return result_df
 
-def save_to_json (data: pd.DataFrame, save_path: str):
-    with open(save_path, 'w') as f:
-        for entry in data:
-            f.write(f"{json.dumps(entry)}\n")
+def save_to_json (data: list, save_path: str):
+    with open(save_path, mode='w') as writer:
+        for item in data:
+            writer.write(f"{json.dumps(item)}\n")
