@@ -50,6 +50,19 @@ class Dataset:
         plt.show()
         return
     
+    def plot_name_histogram (self):
+        name_counts = self.dataset['name'].value_counts()
+
+        # Plot the histogram
+        plt.figure(figsize=(10, 6))
+        name_counts.plot(kind='bar')
+        plt.title('Histogram of Names')
+        plt.xlabel('Name')
+        plt.ylabel('Frequency')
+        plt.xticks(rotation=45)  # Rotate x-axis labels for better readability
+        plt.tight_layout()
+        plt.show()
+    
     def gender_validty(self):
         return count_appearances_in_texts(texts_df=self.dataset['filled_template'], words=self.unique_genders, type='gender')
 
@@ -67,9 +80,8 @@ class Dataset:
                           'Number of Words': implicit_filtered_values,
                           'filled_template': implicit_filtered_examples})
 
-    def questions_length (self, min_str_len = 25):
-        self.dataset['filled_template'].str.split().apply(len).plot(title="Decision Questions Lengths for Explicit Dataset",
-                                                           figsize=(20,5), xticks=range(0,len(self.dataset)+1, 135*5))
+    def questions_length (self,title: str, min_str_len = 25 ):
+        self.dataset['filled_template'].str.split().apply(len).plot(title=title,figsize=(20,5), xticks=range(0,len(self.dataset)+1, 135*5))
         anomaly_df = string_length_anomalies(df=self.dataset, min_str_len=min_str_len)
         return anomaly_df
 
