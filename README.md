@@ -5,10 +5,16 @@ It would involve generating decision-making scenarios relevant to these groups, 
 and analyzing the responses for patterns of discrimination. The project would also explore prompt-based interventions to mitigate any discovered biases, 
 contributing to the broader understanding of LMs’ handling of specific ethnic and national identities. For more details on the original paper, you can access it [[1]](#1).
 
+## Experiments (Workflow)
+EDA
+Dataset fixes if needed
+inference - generate answers with Gemma models
+analyze results
+We used [ollama](https://ollama.com/) framework to run the models described later in this README.
 
 ## [Datasets](outputs\datasets) and Models
 
-| Dataset \ Model              | [gemma-1.1-2b-it](https://huggingface.co/google/gemma-1.1-2b-it) | [gemma-1.1-2b-it-GGUF](https://huggingface.co/google/gemma-1.1-2b-it-GGUF) | [gemma-1.1-7b-it](https://huggingface.co/google/gemma-1.1-7b-it) | [gemma-1.1-7b-it-GGUF](https://huggingface.co/google/gemma-1.1-7b-it-GGUF) |
+| Dataset \ Model              | [gemma:2b-instruct-v1.1-fp16](https://ollama.com/library/gemma:2b-instruct-v1.1-fp16) | [gemma:2b-instruct-q4_K_M](https://ollama.com/library/gemma:2b-instruct-v1.1-q4_K_M) | [gemma:7b-instruct-v1.1-fp16](https://ollama.com/library/gemma:7b-instruct-v1.1-fp16) | [gemma:7b-instruct-q4_K_M](https://ollama.com/library/gemma:7b-instruct-v1.1-q4_K_M) |
 |:------------------------------:|:---------:|:---------:|:---------:|:---------:|
 | explicit-combined-jews       | ✖️       | ✖️        | ✖️       | ✖️      |
 | explicit-all-jew            | ✖️       | ✖️        | ✖️       | ✖️      |
@@ -16,14 +22,8 @@ contributing to the broader understanding of LMs’ handling of specific ethnic 
 | implicit-fix-all-jew?                        | ✖️       | ✖️        | ✖️       | ✖️      |
 
 ## Models Description
-We used ollama framwork to run the models, the description can be found below with their respect name in the ollama models library.
-### [gemma-1.1-2b-it](https://huggingface.co/google/gemma-1.1-2b-it) - 
-
-### [gemma-1.1-2b-it-GGUF](https://huggingface.co/google/gemma-1.1-2b-it-GGUF) - gemma:2b-instruct-v1.1-q4_0
-
-### [gemma-1.1-7b-it](https://huggingface.co/google/gemma-1.1-7b-it)
-
-### [gemma-1.1-7b-it-GGUF](https://huggingface.co/google/gemma-1.1-7b-it) - gemma:7b-instruct-v1.1-q4_0
+### [Google Gemma](https://ai.google.dev/gemma/docs/model_card)
+_Note:_ **write here about the quantization method**
 
 
 ## Datasets Description
@@ -42,7 +42,7 @@ The data are in two jsonl files, [explicit.jsonl](discrim-eval-2\explicit.jsonl)
  
 The implicit.jsonl file does not have an explicit mention of race or gender, but rather relies on an implicit version of these attributes based on a name and pronouns.
 
-####  [Exploratory Data Analysis](EDA\eda.ipynb)
+#### [Exploratory Data Analysis](EDA\eda.ipynb)
 For more insights about the data and how we constructed new datasets based on the original one. 
 
 ### [explicit-combined-jews](outputs\datasets\explicit-combined-jews.jsonl)
@@ -131,3 +131,7 @@ For further details you can see the EDA and how we built the new dataset.
 
 <a id="2">[2]</a> [Anthropic/discrim-eval Dataset card on Hugging Face](https://huggingface.co/datasets/Anthropic/discrim-eval)
 .
+
+[ollama Git](https://github.com/ollama/ollama/tree/main)
+
+[gemma Git](https://github.com/google-deepmind/gemma)
