@@ -148,7 +148,7 @@ def extract_full_name(names_list):
     names = set(names)
     #if not names:
     #    names = set(names_list)
-    return names  # Return the full list if full name doesn't exist
+    return list(names)  # Return the full list if full name doesn't exist
 
 #def replace_name ():
 
