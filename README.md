@@ -16,13 +16,14 @@ contributing to the broader understanding of LMs’ handling of specific ethnic 
 | implicit-fix-all-jew?                        | ✖️       | ✖️        | ✖️       | ✖️      |
 
 ## Models Description
-### [gemma-1.1-2b-it](https://huggingface.co/google/gemma-1.1-2b-it)
+We used ollama framwork to run the models, the description can be found below with their respect name in the ollama models library.
+### [gemma-1.1-2b-it](https://huggingface.co/google/gemma-1.1-2b-it) - 
 
-### [gemma-1.1-2b-it-GGUF](https://huggingface.co/google/gemma-1.1-2b-it-GGUF)
+### [gemma-1.1-2b-it-GGUF](https://huggingface.co/google/gemma-1.1-2b-it-GGUF) - gemma:2b-instruct-v1.1-q4_0
 
 ### [gemma-1.1-7b-it](https://huggingface.co/google/gemma-1.1-7b-it)
 
-### [gemma-1.1-7b-it-GGUF](https://huggingface.co/google/gemma-1.1-7b-it)
+### [gemma-1.1-7b-it-GGUF](https://huggingface.co/google/gemma-1.1-7b-it) - gemma:7b-instruct-v1.1-q4_0
 
 
 ## Datasets Description

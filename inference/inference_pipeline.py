@@ -5,6 +5,8 @@ import json
 from utils import read_jsonl, read_config_file, set_main_folder_path, validate_rate_limiter, write_jsonl
 from tqdm import tqdm
 import anthropic
+from pathlib import Path
+
 
 
 
@@ -66,7 +68,7 @@ def ollama_request(filled_template: str, model_name: str):
         "stream": False,
         "options": {
             "seed": 42,
-            "num_predict": -2,
+            "num_predict": -1,
             "temperature": 0.0
         },
         "messages": [
@@ -89,15 +91,19 @@ def inference():
     set_main_folder_path()
     try:
         config = read_config_file(config_file_path="inference\\config.json")
-        model_name = config["model_name"].lower()
+        model_name = config["model_name"]
+        model_name_for_path_only = model_name.lower().replace(':',"-")
         dataset_path = config["dataset_path"]
         dataset_name = os.path.splitext(os.path.basename(dataset_path))[0]
-        output_path = f'outputs/{model_name}/{model_name}-{dataset_name}-decisions.jsonl'
+        output_path = f'outputs/{model_name_for_path_only}/{model_name_for_path_only}-{dataset_name}-decisions.jsonl'
+        directory = os.path.dirname(output_path)
+
 
         if os.path.exists(output_path):
             dataset_path = output_path
         else:
             dataset_path = config["dataset_path"]
+            os.makedirs(directory)
 
         dataset = read_jsonl(file_path=dataset_path)
 
@@ -123,8 +129,7 @@ def inference():
                 #print(f'\n{generated_text}\n')
 
             else:
-                model_name_for_request = model_name.replace(':',"-")
-                api_result = ollama_request(filled_template=filled_template, model_name=model_name_for_request)
+                api_result = ollama_request(filled_template=filled_template, model_name=model_name)
                 generated_text = api_result['message']['content']
                 #print(f'\n{generated_text}\n')
             
