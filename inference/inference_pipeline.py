@@ -103,7 +103,8 @@ def inference():
             dataset_path = output_path
         else:
             dataset_path = config["dataset_path"]
-            os.makedirs(directory)
+            if not os.path.exists(directory):
+                os.makedirs(directory)
 
         dataset = read_jsonl(file_path=dataset_path)
 
