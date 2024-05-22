@@ -16,10 +16,10 @@ We used [ollama](https://ollama.com/) framework to run the models described late
 
 | Dataset \ Model              | [gemma:2b-instruct-v1.1-fp16](https://ollama.com/library/gemma:2b-instruct-v1.1-fp16) | [gemma:2b-instruct-q4_K_M](https://ollama.com/library/gemma:2b-instruct-v1.1-q4_K_M) | [gemma:7b-instruct-v1.1-fp16](https://ollama.com/library/gemma:7b-instruct-v1.1-fp16) | [gemma:7b-instruct-q4_K_M](https://ollama.com/library/gemma:7b-instruct-v1.1-q4_K_M) |
 |:------------------------------:|:---------:|:---------:|:---------:|:---------:|
-| explicit-combined-jews       | ✖️       | ✖️        | ✖️       | ✖️      |
-| explicit-all-jew            | ✖️       | ✖️        | ✖️       | ✖️      |
-| implicit-fix-combined-jews   | ✖️       | ✖️        | ✖️       | ✖️      |
-| implicit-fix-all-jew?                        | ✖️       | ✖️        | ✖️       | ✖️      |
+| [explicit-combined-jews](outputs\datasets\explicit-combined-jews.jsonl)       |   ✗     | [✔](outputs\gemma-2b-instruct-q4_k_m\gemma-2b-instruct-q4_k_m-explicit-combined-jews-decisions.jsonl)        | ✗       | ✗      |
+| [explicit-all-jew](outputs\datasets\explicit-combined-jews.jsonl)            |    ✗    | ⌛️        | ✗       | ✗      |
+| implicit-fix-combined-jews   | ✗       | ✗        | ✗       | ✗      |
+| implicit-fix-all-jew?       | ✗       | ✗        | ✗       | ✗      |
 
 ## Models Description
 ### [Google Gemma](https://ai.google.dev/gemma/docs/model_card)
