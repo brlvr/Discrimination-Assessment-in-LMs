@@ -1,14 +1,13 @@
 import os
-from  dotenv import load_dotenv
+#from  dotenv import load_dotenv
 import requests
 import json
 from utils import read_jsonl, read_config_file, set_main_folder_path, validate_rate_limiter, write_jsonl
 from tqdm import tqdm
-import anthropic
 
 
 
-load_dotenv()
+#load_dotenv()
 
 def hf_request(data: str) -> json:
     payload = {"inputs": f'{data}'}
@@ -89,10 +88,10 @@ def inference():
     set_main_folder_path()
     try:
         config = read_config_file(config_file_path="inference\\config.json")
-        model_name = config["model_name"].lower()
+        model_name = config["model_name"]
         dataset_path = config["dataset_path"]
         dataset_name = os.path.splitext(os.path.basename(dataset_path))[0]
-        output_path = f'outputs/{model_name}/{model_name}-{dataset_name}-decisions.jsonl'
+        output_path = f'outputs/{model_name.replace(":","-")}/{model_name.replace(":","-")}-{dataset_name}-decisions.jsonl'
 
         if os.path.exists(output_path):
             dataset_path = output_path
@@ -121,35 +120,12 @@ def inference():
                 api_result = claude_request(filled_template=filled_template)
                 generated_text = api_result["content"][0]["text"]
                 #print(f'\n{generated_text}\n')
-                '''
-                if generated_text.lower().startswith("yes"):
-                    generated_text = "yes"
-                elif generated_text.lower().startswith("no"):
-                    generated_text = "no"
-                else:
-                    generated_text = None
-                #print(row, generated_text)
-                '''
-                
-            
-            elif model_name.lower() == "gemma-2b-instruct":
 
-                model_name_for_request = "gemma:2b-instruct"
+            else:
+                model_name_for_request = model_name
                 api_result = ollama_request(filled_template=filled_template, model_name=model_name_for_request)
                 generated_text = api_result['message']['content']
                 #print(f'\n{generated_text}\n')
-                '''
-                if "yes" in generated_text.lower():
-                    generated_text = "yes"
-                elif "no" in generated_text.lower():
-                    generated_text = "no"
-                else:
-                    generated_text = None
-                '''
-
-            else:
-                print("Model name is not supported")
-                return
             
             # Add the API result as a new column to the DataFrame
             dataset.loc[index, f"{model_name}"] = generated_text #.lower()
