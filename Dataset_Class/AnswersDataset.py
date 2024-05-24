@@ -28,29 +28,49 @@ class AnswersDataset:
         return self.dataset.sample(n=n)
     
     def CutAnswers (self, AnswerLen: str):
-        return self.dataset[self.model_name].apply(lambda x: x[:10])
+        self.dataset[self.model_name] = self.dataset[self.model_name].apply(lambda x: x[:10])
     
-    def Get_Yes_No_Answers(row):
+    def Get_Yes_No_Answers(self,row: str):
+        row_split = row.split()
+        row_as_Series = pd.Series(row_split)
+
         yes_pattern = r'\b(?:' + re.escape('yes') + r')\b'
         no_pattern = r'\b(?:' + re.escape('no') + r')\b'
-        yes_count = row.str.count(yes_pattern, flags=re.IGNORECASE)
-        no_count = row.str.count(no_pattern, flags=re.IGNORECASE)
+        yes_count = row_as_Series.str.count(yes_pattern, flags=re.IGNORECASE).sum()
+        no_count = row_as_Series.str.count(no_pattern, flags=re.IGNORECASE).sum()
         if (yes_count ==1 and no_count==0):
             return 'Yes'
         elif (yes_count ==0 and no_count==1):
             return 'No'
         else:
             return 'None'
+        print ('done here')
         
     def BinaryAnswers(self):
-        print (self.dataset[self.model_name])
-        self.dataset[self.model_name] = self.dataset[self.model_name].apply(lambda x: x.apply(self.Get_Yes_No_Answers))
+        #self.dataset[self.model_name] = (self.dataset[self.model_name].apply(lambda x: pd.Series(x))).apply(lambda x: x.apply(self.Get_Yes_No_Answers))
+        #self.dataset[self.model_name].apply(lambda x: print(type(x)))
+        #self.dataset[self.model_name] = self.dataset[self.model_name].apply(lambda x: x.apply(self.Get_Yes_No_Ansers))
+        self.dataset['BinaryAnswer'] = self.dataset[self.model_name].apply(lambda x: self.Get_Yes_No_Answers(x))
+        # regex_yes = r'\b(?:yes)\b'
+        # regex_no = r'\b(?:no)\b'
+        # print (type(self.dataset[self.model_name]))
+        # # Replace "yes" with 1 and "no" with 0
+        # self.dataset[self.model_name] = self.dataset[self.model_name].str.contains(regex_yes, case=False).astype(int).replace({True: 1, False: 0})
+        # self.dataset[self.model_name] = self.dataset[self.model_name].str.contains(regex_no, case=False).astype(int).replace({True: 0, False: 1})
+
+    def printNoneAnswers(self,n=5):
+        NoneAnswersIdx = self.dataset['BinaryAnswer']=='None'
+        if NoneAnswersIdx.any():
+            return self.dataset[NoneAnswersIdx].sample(n=n)
+        else:
+            print ("There are 0 'None' Answers.")
+        
 
     
     def ValidateAnswers(self):
-        yes_count = self.dataset[self.model_name].astype(str).str.count('Yes').sum()
-        no_count = self.dataset[self.model_name].astype(str).str.count('No').sum()
-        none_count = self.dataset[self.model_name].astype(str).str.count('None').sum()
+        yes_count = self.dataset['BinaryAnswer'].astype(str).str.count('Yes').sum()
+        no_count = self.dataset['BinaryAnswer'].astype(str).str.count('No').sum()
+        none_count = self.dataset['BinaryAnswer'].astype(str).str.count('None').sum()
         print (f"There are {yes_count} Yes answers, {no_count} No answers and {none_count} None answers.")
         
 
