@@ -129,6 +129,7 @@ def find_names_from_dataframe(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 def find_names(sentence: str):
+
     tokens = word_tokenize(sentence)
     tagged = pos_tag(tokens)
     named_entities = ne_chunk(tagged)

@@ -5,24 +5,25 @@ It would involve generating decision-making scenarios relevant to these groups, 
 and analyzing the responses for patterns of discrimination. The project would also explore prompt-based interventions to mitigate any discovered biases, 
 contributing to the broader understanding of LMs’ handling of specific ethnic and national identities. For more details on the original paper, you can access it [[1]](#1).
 
+## Experiments (Workflow)
+EDA
+Dataset fixes if needed
+inference - generate answers with Gemma models
+analyze results
+We used [ollama](https://ollama.com/) framework to run the models described later in this README.
 
 ## [Datasets](outputs\datasets) and Models
 
-| Dataset \ Model              | [gemma-1.1-2b-it](https://huggingface.co/google/gemma-1.1-2b-it) | [gemma-1.1-2b-it-GGUF](https://huggingface.co/google/gemma-1.1-2b-it-GGUF) | [gemma-1.1-7b-it](https://huggingface.co/google/gemma-1.1-7b-it) | [gemma-1.1-7b-it-GGUF](https://huggingface.co/google/gemma-1.1-7b-it-GGUF) |
+| Dataset \ Model              | [gemma:2b-instruct-v1.1-fp16](https://ollama.com/library/gemma:2b-instruct-v1.1-fp16) | [gemma:2b-instruct-q4_K_M](https://ollama.com/library/gemma:2b-instruct-v1.1-q4_K_M) | [gemma:7b-instruct-v1.1-fp16](https://ollama.com/library/gemma:7b-instruct-v1.1-fp16) | [gemma:7b-instruct-q4_K_M](https://ollama.com/library/gemma:7b-instruct-v1.1-q4_K_M) |
 |:------------------------------:|:---------:|:---------:|:---------:|:---------:|
-| explicit-combined-jews       | ✖️       | ✖️        | ✖️       | ✖️      |
-| explicit-all-jew            | ✖️       | ✖️        | ✖️       | ✖️      |
-| implicit-fix-combined-jews   | ✖️       | ✖️        | ✖️       | ✖️      |
-| more?                        | ✖️       | ✖️        | ✖️       | ✖️      |
+| [explicit-combined-jews](outputs\datasets\explicit-combined-jews.jsonl)       |   ✗     | [✓](outputs\gemma-2b-instruct-q4_k_m\gemma-2b-instruct-q4_k_m-explicit-combined-jews-decisions.jsonl)        | ✗       | ✗      |
+| [explicit-all-jew](outputs\datasets\explicit-combined-jews.jsonl)            |    ✗    | [✓](outputs\gemma-2b-instruct-q4_k_m\gemma-2b-instruct-q4_k_m-explicit-all-jew-decisions.jsonl)        | ✗       | [⌛️]()      |
+| implicit-fix-combined-jews   | ✗       | ✗        | ✗       | ✗      |
+| implicit-fix-all-jew?       | ✗       | ✗        | ✗       | ✗      |
 
 ## Models Description
-### [gemma-1.1-2b-it](https://huggingface.co/google/gemma-1.1-2b-it)
-
-### [gemma-1.1-2b-it-GGUF](https://huggingface.co/google/gemma-1.1-2b-it-GGUF)
-
-### [gemma-1.1-7b-it](https://huggingface.co/google/gemma-1.1-7b-it)
-
-### [gemma-1.1-7b-it-GGUF](https://huggingface.co/google/gemma-1.1-7b-it)
+### [Google Gemma](https://ai.google.dev/gemma/docs/model_card)
+_Note:_ **write here about the quantization method**
 
 
 ## Datasets Description
@@ -41,7 +42,7 @@ The data are in two jsonl files, [explicit.jsonl](discrim-eval-2\explicit.jsonl)
  
 The implicit.jsonl file does not have an explicit mention of race or gender, but rather relies on an implicit version of these attributes based on a name and pronouns.
 
-####  [Exploratory Data Analysis](EDA\eda.ipynb)
+#### [Exploratory Data Analysis](EDA\eda.ipynb)
 For more insights about the data and how we constructed new datasets based on the original one. 
 
 ### [explicit-combined-jews](outputs\datasets\explicit-combined-jews.jsonl)
@@ -58,20 +59,22 @@ For further details you can see the EDA and how we built the new dataset.
 
 ### implicit-fix-combined-jews
 - [ ] add explenation and add link inside repo to the data
-### more?
+  This dataset is the fixed implicit with additional jewish names, here jewish is counted as a race.
+### implicit-fix-all-jew?
 - [ ] add explenation and add link inside repo to the data
+  This dataset is the fixed implicit with all have jewish/israeli attributes.
 
 
 ## Missions
 - [x] Read the article (ongoing)
 - [ ] Investigate how LMs handle decisions involving Jewish people and Israel-associated individuals.
-- [ ] Generating decision-making scenarios relevant to Jewish people - Explicit dataset 1.
+- [x] Generating decision-making scenarios relevant to Jewish people - Explicit dataset 1.
   - [x] Explicit EDA.
   - [x] Add to RACE category "Jewish".
-- [ ] Generating decision-making scenarios relevant to Jewish people - Explicit dataset 2.
-  - [ ] Create a dataset where everyone is Jewish concerning the original dataset, and add religion to the base dataset to see if the discrimination is getting higher or not. (We haven't done it since we need Claude 2.0 baseline results which are different know - we assume that they added patches to fix their discrimination so the results in the paper are not as using the API today).
+- [x] Generating decision-making scenarios relevant to Jewish people - Explicit dataset 2.
+  - [x] Create a dataset where everyone is Jewish concerning the original dataset, and add religion to the base dataset to see if the discrimination is getting higher or not. (We haven't done it since we need Claude 2.0 baseline results which are different know - we assume that they added patches to fix their discrimination so the results in the paper are not as using the API today).
 - [ ] Generating decision-making scenarios relevant to Israel-associated individuals - Implicit dataset.
-  - [ ] Implicit EDA.
+  - [ ] Implicit EDA. (make it more organized)
   - [ ] Get a template from each decision question ID and add Israel-associated individuals.
   - [ ] Get a template from each decision question ID and add Jewish and Israel-associated identifiers.
 - [ ] Analyzing the responses for patterns of discrimination.
@@ -128,3 +131,7 @@ For further details you can see the EDA and how we built the new dataset.
 
 <a id="2">[2]</a> [Anthropic/discrim-eval Dataset card on Hugging Face](https://huggingface.co/datasets/Anthropic/discrim-eval)
 .
+
+[ollama Git](https://github.com/ollama/ollama/tree/main)
+
+[gemma Git](https://github.com/google-deepmind/gemma)
