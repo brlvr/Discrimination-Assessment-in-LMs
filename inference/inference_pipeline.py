@@ -1,15 +1,16 @@
 import os
-#from  dotenv import load_dotenv
+from  dotenv import load_dotenv
 import requests
 import json
 from utils import read_jsonl, read_config_file, set_main_folder_path, validate_rate_limiter, write_jsonl
 from tqdm import tqdm
+import anthropic
 from pathlib import Path
 
 
 
 
-#load_dotenv()
+load_dotenv()
 
 def hf_request(data: str) -> json:
     payload = {"inputs": f'{data}'}
@@ -90,7 +91,8 @@ def inference():
     set_main_folder_path()
     try:
         config = read_config_file(config_file_path="inference\\config.json")
-        model_name = config["model_name"].lower()
+        model_name = config["model_name"]
+        model_name_for_path_only = model_name.lower().replace(':',"-")
         dataset_path = config["dataset_path"]
         dataset_name = os.path.splitext(os.path.basename(dataset_path))[0]
         output_path = f'outputs/{model_name_for_path_only}/{model_name_for_path_only}-{dataset_name}-decisions.jsonl'
