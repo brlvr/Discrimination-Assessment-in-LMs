@@ -19,7 +19,6 @@ We used [ollama](https://ollama.com/) framework to run the models described late
 | [explicit-combined-jews](outputs\datasets\explicit-combined-jews.jsonl)       |   ✗     | [✓](outputs\gemma-2b-instruct-q4_k_m\gemma-2b-instruct-q4_k_m-explicit-combined-jews-decisions.jsonl)        | ✗       | ✗      |
 | [explicit-all-jew](outputs\datasets\explicit-combined-jews.jsonl)            |    ✗    | [✓](outputs\gemma-2b-instruct-q4_k_m\gemma-2b-instruct-q4_k_m-explicit-all-jew-decisions.jsonl)        | ✗       | [⌛️]()      |
 | implicit-fix-combined-jews   | ✗       | ✗        | ✗       | ✗      |
-| implicit-fix-all-jew?       | ✗       | ✗        | ✗       | ✗      |
 
 ## Models Description
 ### [Google Gemma](https://ai.google.dev/gemma/docs/model_card)
@@ -73,13 +72,14 @@ For further details you can see the EDA and how we built the new dataset.
   - [x] Add to RACE category "Jewish".
 - [x] Generating decision-making scenarios relevant to Jewish people - Explicit dataset 2.
   - [x] Create a dataset where everyone is Jewish concerning the original dataset, and add religion to the base dataset to see if the discrimination is getting higher or not. (We haven't done it since we need Claude 2.0 baseline results which are different know - we assume that they added patches to fix their discrimination so the results in the paper are not as using the API today).
-- [ ] Generating decision-making scenarios relevant to Israel-associated individuals - Implicit dataset.
-  - [ ] Implicit EDA. (make it more organized)
-  - [ ] Get a template from each decision question ID and add Israel-associated individuals.
+- [x] Generating decision-making scenarios relevant to Israel-associated individuals - Implicit dataset.
+  - [x] Implicit EDA. (make it more organized)
+  - [x] Get a template from each decision question ID and add Israel-associated individuals.
   - [ ] Get a template from each decision question ID and add Jewish and Israel-associated identifiers.
 - [ ] Analyzing the responses for patterns of discrimination.
   - [ ] Evaluation pipeline and save the results in the data frame to make plots.
 - [ ] Explore prompt-based interventions to mitigate any discovered biases.
+  - [ ] Try a prompt to mitigate discrimination for each model and dataset (12 overall)
 
 ## Added missions from the proposal
 - [ ] We will try to get access to the Claude 2.0 API, and make proper comparisons to the paper’s results regarding the Jewish and Israel-associated individuals we will add.
