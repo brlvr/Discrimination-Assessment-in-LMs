@@ -125,11 +125,6 @@ class AnswersDataset:
 
 
     def calculateDiscrimination (self, category: str, base_demography: str,second_demography: str):
-        # if not(self.category == category and self.base_demography == base_demography):
-        #     self.__setBaseDemography(category,base_demography)
-        
-        # self.category = category
-        # self.base_demography = base_demography
         p_yes_A, p_no_A = self.__getDemographyProbablities(category=category,demography=base_demography)
         p_yes_B, p_no_B = self.__getDemographyProbablities(category=category,demography=second_demography)
         score, score_per_decision = self.__getScore(p_yes_A,p_no_A,p_yes_B,p_no_B)
