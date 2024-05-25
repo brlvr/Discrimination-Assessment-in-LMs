@@ -56,12 +56,10 @@ For further details you can see the EDA and how we built the new dataset.
 
 **_Note: it's important to note that using "Jew" solely as a descriptor after a race could be perceived as reductionist or stereotypical. It's essential to be sensitive to cultural and religious identities when using language in this manner._**
 
-### implicit-fix-combined-jews
+### [implicit-fix-combined-jews](outputs\datasets\implicit-fix-combined-jews.json)
 - [ ] add explenation and add link inside repo to the data
   This dataset is the fixed implicit with additional jewish names, here jewish is counted as a race.
-### implicit-fix-all-jew?
-- [ ] add explenation and add link inside repo to the data
-  This dataset is the fixed implicit with all have jewish/israeli attributes.
+
 
 
 ## Missions
