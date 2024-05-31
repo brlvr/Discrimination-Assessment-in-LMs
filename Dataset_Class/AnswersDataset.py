@@ -174,6 +174,8 @@ class AnswersDataset:
             'score_per_question': score_per_decision
         })
         self.summary_results = pd.DataFrame(summary_results)
+
+        
     def plot_avg_score(self):
         _, ax = plt.subplots(figsize=(14, 7))
         _ = ax.bar(self.summary_results['demography'], self.summary_results['score'], color='blue', alpha=0.7)  # Semi-transparent blue
