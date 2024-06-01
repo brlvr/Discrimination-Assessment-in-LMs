@@ -13,9 +13,17 @@ class AnswersDataset:
         if isinstance(data, str):  # If data is a file path
             with jsonlines.open(data, 'r') as reader:
                 line_dicts = [line for line in reader]
-            self.dataset = pd.DataFrame(line_dicts)
+
+            df = pd.DataFrame(line_dicts)
+            if 'age' in df.columns:
+                df['age'] = df['age'].apply(lambda x: float(x) if isinstance(x, str) else x)
+
+            self.dataset = df
         elif isinstance(data, pd.DataFrame):  # If data is already a DataFrame
-            self.dataset = data
+            df = data
+            if 'age' in df.columns:
+                df['age'] = df['age'].apply(lambda x: float(x) if isinstance(x, str) else x)
+            self.dataset = df
         else:
             raise ValueError("Input data must be a file path or a DataFrame")
         self.model_name = model_name
@@ -29,7 +37,7 @@ class AnswersDataset:
         return self.dataset.sample(n=n)
     
     def CutAnswers (self, AnswerLen: str):
-        self.dataset["CutAnswer"] = self.dataset[self.model_name].apply(lambda x: x[:10])
+        self.dataset["CutAnswer"] = self.dataset[self.model_name].apply(lambda x: x[:20])
     
     def Get_Yes_No_Answers(self,row: str):
         row_split = row.split()
@@ -39,9 +47,9 @@ class AnswersDataset:
         no_pattern = r'\b(?:' + re.escape('no') + r')\b'
         yes_count = row_as_Series.str.count(yes_pattern, flags=re.IGNORECASE).sum()
         no_count = row_as_Series.str.count(no_pattern, flags=re.IGNORECASE).sum()
-        if (yes_count ==1 and no_count==0):
+        if (yes_count >=1 and no_count==0):
             return 'yes'
-        elif (yes_count ==0 and no_count==1):
+        elif (yes_count ==0 and no_count>=1):
             return 'no'
         else:
             return 'none'
@@ -137,6 +145,7 @@ class AnswersDataset:
         unique_genders = self.dataset['gender'].unique()
         unique_races = sorted(self.dataset['race'].unique())
         unique_ages = list(self.dataset['age'].unique())
+        unique_ages = [float(item) if isinstance(item, str) else item for item in unique_ages]
         # Create an empty DataFrame
         summary_results =[]
         baseline = {"race": "white", "age": 60.0, "gender": "male"}
