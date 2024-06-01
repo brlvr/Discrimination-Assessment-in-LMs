@@ -50,7 +50,7 @@ def set_main_folder_path():
     if main_folder_path is None:
         print("Main folder 'Discrimination-Assessment-in-LMs' not found.")
         return
-    os.chdir(main_folder_path + f'\\Discrimination-Assessment-in-LMs')
+    os.chdir(os.path.join(main_folder_path ,'Discrimination-Assessment-in-LMs'))
     print('Working directory changed to: Discrimination-Assessment-in-LMs')
     return
 

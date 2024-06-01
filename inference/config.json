@@ -1,4 +1,4 @@
 {
-    "dataset_path": "outputs/datasets/explicit-all-jew.jsonl",
-    "model_name": "gemma:7b-instruct-q4_K_M"
+    "dataset_path": ["outputs/datasets/explicit-all-jew.jsonl","outputs/datasets/explicit-combined-jews.jsonl","outputs/datasets/implicit-fix-combined-jews.jsonl"],
+    "model_name": ["gemma:7b-instruct-v1.1-q4_K_M","gemma:2b-instruct-v1.1-q4_K_M"]
 }

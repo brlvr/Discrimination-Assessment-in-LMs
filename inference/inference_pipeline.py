@@ -89,61 +89,60 @@ def ollama_request(filled_template: str, model_name: str):
 def inference():
     print("Starting inference pipeline...")
     set_main_folder_path()
-    try:
-        config = read_config_file(config_file_path="inference\\config.json")
-        model_name = config["model_name"]
-        model_name_for_path_only = model_name.lower().replace(':',"-")
-        dataset_path = config["dataset_path"]
-        dataset_name = os.path.splitext(os.path.basename(dataset_path))[0]
-        output_path = f'outputs/{model_name_for_path_only}/{model_name_for_path_only}-{dataset_name}-decisions.jsonl'
-        directory = os.path.dirname(output_path)
+    config = read_config_file(config_file_path=r"./inference/config.json")
+    for model_name in config["model_name"]:
+        for dataset_path in  config["dataset_path"]:
+            try:
+                model_name_for_path_only = model_name.lower().replace(':',"-")
+                dataset_name = os.path.splitext(os.path.basename(dataset_path))[0]
+                output_path = f'outputs/{model_name_for_path_only}/{model_name_for_path_only}-{dataset_name}-decisions.jsonl'
+                directory = os.path.dirname(output_path)
 
 
-        if os.path.exists(output_path):
-            dataset_path = output_path
-        else:
-            dataset_path = config["dataset_path"]
-            if not os.path.exists(directory):
-                os.makedirs(directory)
+                if os.path.exists(output_path):
+                    dataset_path = output_path
+                else:
+                    if not os.path.exists(directory):
+                        os.makedirs(directory)
 
-        dataset = read_jsonl(file_path=dataset_path)
+                dataset = read_jsonl(file_path=dataset_path)
 
-        if model_name not in dataset.columns:
-            # Create a new column with None values
-            dataset[f"{model_name}"] = None
+                if model_name not in dataset.columns:
+                    # Create a new column with None values
+                    dataset[f"{model_name}"] = None
 
-    except Exception as e:
-        print("Error at Configuration stage",e)
-        return
-    
-    try:
-        for index, row in tqdm(dataset.iterrows(), total=len(dataset), desc="Processing Rows"):
-        # Extract data from the specified column
-            filled_template = row["filled_template"]
-            if row[f"{model_name}"] is not None:
-                continue
+            except Exception as e:
+                print("Error at Configuration stage",e)
+                return
+        
+            try:
+                for index, row in tqdm(dataset.iterrows(), total=len(dataset), desc="Processing Rows"):
+                # Extract data from the specified column
+                    filled_template = row["filled_template"]
+                    if row[f"{model_name}"] is not None:
+                        continue
 
-            if model_name.lower() == "claude-2.0":
-    
-                api_result = claude_request(filled_template=filled_template)
-                generated_text = api_result["content"][0]["text"]
-                #print(f'\n{generated_text}\n')
-
-            else:
-                api_result = ollama_request(filled_template=filled_template, model_name=model_name)
-                generated_text = api_result['message']['content']
-                #print(f'\n{generated_text}\n')
+                    if model_name.lower() == "claude-2.0":
             
-            # Add the API result as a new column to the DataFrame
-            dataset.loc[index, f"{model_name}"] = generated_text #.lower()
+                        api_result = claude_request(filled_template=filled_template)
+                        generated_text = api_result["content"][0]["text"]
+                        #print(f'\n{generated_text}\n')
 
-            if index%200 == 0:
+                    else:
+                        api_result = ollama_request(filled_template=filled_template, model_name=model_name)
+                        generated_text = api_result['message']['content']
+                        #print(f'\n{generated_text}\n')
+                    
+                    # Add the API result as a new column to the DataFrame
+                    dataset.loc[index, f"{model_name}"] = generated_text #.lower()
+
+                    if index%200 == 0:
+                        write_jsonl(df=dataset, file_path=output_path)
                 write_jsonl(df=dataset, file_path=output_path)
-        write_jsonl(df=dataset, file_path=output_path)
 
-    except Exception as e:
-        print("Error in inference",e)
-        write_jsonl(df=dataset, file_path=output_path)
+            except Exception as e:
+                print("Error in inference",e)
+                write_jsonl(df=dataset, file_path=output_path)
 
 
 # Conditional Execution
