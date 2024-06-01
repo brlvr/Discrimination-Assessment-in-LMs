@@ -16,9 +16,9 @@ We used [ollama](https://ollama.com/) framework to run the models described late
 
 | Dataset \ Model              | [gemma:2b-instruct-v1.1-fp16](https://ollama.com/library/gemma:2b-instruct-v1.1-fp16) | [gemma:2b-instruct-v1.1-q4_K_M](https://ollama.com/library/gemma:2b-instruct-v1.1-q4_K_M) | [gemma:7b-instruct-v1.1-fp16](https://ollama.com/library/gemma:7b-instruct-v1.1-fp16) | [gemma:7b-instruct-v1.1-q4_K_M](https://ollama.com/library/gemma:7b-instruct-v1.1-q4_K_M) |
 |:------------------------------:|:---------:|:---------:|:---------:|:---------:|
-| [explicit-combined-jews](outputs\datasets\explicit-combined-jews.jsonl)       |   [✓](outputs\gemma-2b-instruct-v1.1-fp16\gemma-2b-instruct-v1.1-fp16-explicit-combined-jews-decisions.jsonl)     | [✓](outputs\gemma-2b-instruct-q4_k_m\gemma-2b-instruct-q4_k_m-explicit-combined-jews-decisions.jsonl)        | ✗       | [✓](outputs\gemma-7b-instruct-q4_k_m\gemma-7b-instruct-q4_k_m-explicit-combined-jews-decisions.jsonl)      |
-| [explicit-all-jew](outputs\datasets\explicit-combined-jews.jsonl)            |    [✓](outputs\gemma-2b-instruct-v1.1-fp16\gemma-2b-instruct-v1.1-fp16-explicit-all-jew-decisions.jsonl)    | [✓](outputs\gemma-2b-instruct-q4_k_m\gemma-2b-instruct-q4_k_m-explicit-all-jew-decisions.jsonl)        | ✗       | [✓](outputs\gemma-7b-instruct-q4_k_m\gemma-7b-instruct-q4_k_m-explicit-all-jew-decisions.jsonl)      |
-| implicit-fix-combined-jews   | ✗       | ✗        | ✗       | ✗      |
+| [explicit-combined-jews](outputs\datasets\explicit-combined-jews.jsonl)       |   [✓](outputs\gemma-2b-instruct-v1.1-fp16\gemma-2b-instruct-v1.1-fp16-explicit-combined-jews-decisions.jsonl)     | [✓](outputs\gemma-2b-instruct-v1.1-q4_k_m\gemma-2b-instruct-v1.1-q4_k_m-explicit-combined-jews-decisions.jsonl)        | ✗       | [✓](outputs\gemma-7b-instruct-v1.1-q4_k_m\gemma-7b-instruct-v1.1-q4_k_m-explicit-combined-jews-decisions.jsonl)      |
+| [explicit-all-jew](outputs\datasets\explicit-combined-jews.jsonl)            |    [✓](outputs\gemma-2b-instruct-v1.1-fp16\gemma-2b-instruct-v1.1-fp16-explicit-all-jew-decisions.jsonl)    | [✓](outputs\gemma-2b-instruct-v1.1-q4_k_m\gemma-2b-instruct-v1.1-q4_k_m-explicit-all-jew-decisions.jsonl)        | ✗       | [✓](outputs\gemma-7b-instruct-v1.1-q4_k_m\gemma-7b-instruct-v1.1-q4_k_m-explicit-all-jew-decisions.jsonl)      |
+| [implicit-fix-combined-jews](outputs\datasets\implicit-fix-combined-jews.jsonl)   | [✓](outputs\gemma-2b-instruct-v1.1-fp16\gemma-2b-instruct-v1.1-fp16-implicit-fix-combined-jews-decisions.jsonl)       | [✓](outputs\gemma-2b-instruct-v1.1-q4_k_m\gemma-2b-instruct-v1.1-q4_k_m-implicit-fix-combined-jews-decisions.jsonl)        | ✗       | [✓](outputs\gemma-7b-instruct-v1.1-q4_k_m\gemma-7b-instruct-v1.1-q4_k_m-implicit-fix-combined-jews-decisions.jsonl)      |
 
 ## Models Description
 ### [Google Gemma](https://ai.google.dev/gemma/docs/model_card)
@@ -57,8 +57,12 @@ For further details you can see the EDA and how we built the new dataset.
 **_Note: it's important to note that using "Jew" solely as a descriptor after a race could be perceived as reductionist or stereotypical. It's essential to be sensitive to cultural and religious identities when using language in this manner._**
 
 ### [implicit-fix-combined-jews](outputs\datasets\implicit-fix-combined-jews.json)
-- [ ] add explenation and add link inside repo to the data
-  This dataset is the fixed implicit with additional jewish names, here jewish is counted as a race.
+This dataset is a variation of the original implicit dataset, it involves specifying an age, along with a name associated with a particular race and
+gender. Whereas the former approach enables us to assess discrimination based on explicitly mentioned demographic information, this latter approach enables us to assess discrimination based on more subtle information correlated with race and gender.
+
+Here we also addressed **Jewish as a race**, this dataset is larger then the original implicit dataset because we added one more race option for each question ID By adding Jewish/Israeli names -> 11340 examples (3x6x9x70).
+
+Also, in the original implicit dataset we found a lot of outliers and errors for decision questions, some weren't complete, others were too long, so we had to fix those and come ou with the new dataset. More can be found on the EDA and the final work paper.
 
 
 
