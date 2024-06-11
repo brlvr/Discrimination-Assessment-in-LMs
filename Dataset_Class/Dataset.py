@@ -81,7 +81,7 @@ class Dataset:
                           'filled_template': implicit_filtered_examples})
 
     def questions_length (self,title: str, min_str_len = 25 ):
-        self.dataset['filled_template'].str.split().apply(len).plot(title=title,figsize=(20,5), xticks=range(0,len(self.dataset)+1, 135*5))
+        self.dataset['filled_template'].str.split().apply(len).plot(title=title,figsize=(20,5), xticks=range(0,len(self.dataset)+1, 135*5), xlabel='decision question sample', ylabel='num of characters')
         anomaly_df = string_length_anomalies(df=self.dataset, min_str_len=min_str_len)
         return anomaly_df
 
