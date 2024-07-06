@@ -1,8 +1,3 @@
-### Python and Conda Versions
-
-- **Python Version**: 3.8
-- **Conda Version**: 4.10.3
-  
 # Discrimination-Assessment-in-LMs
 Replicating Discrimination Assessment in LMs with Focus on Jewish People and Israel Associated Individuals.
 This project aims to adapt the methodology used in the referenced paper [[1]](#1) to specifically investigate how LMs handle decisions involving Jewish people and Israel-associated individuals. 
