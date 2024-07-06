@@ -1,3 +1,7 @@
+[![Python Version](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/release/python-312/)
+[![Conda Version](https://img.shields.io/badge/conda-4.10.3-green.svg)](https://docs.conda.io/en/latest/)
+[![Platform](https://img.shields.io/badge/platform-win--64-lightgrey.svg)](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#building-identical-conda-environments)
+
 # Discrimination-Assessment-in-LMs
 Replicating Discrimination Assessment in LMs with Focus on Jewish People and Israel Associated Individuals.
 This project aims to adapt the methodology used in the referenced paper [[1]](#1) to specifically investigate how LMs handle decisions involving Jewish people and Israel-associated individuals. 
